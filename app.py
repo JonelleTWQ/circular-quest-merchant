@@ -1531,6 +1531,14 @@ elif page == "POS Upload":
                             "POS surplus processing complete."
                         )
 
+            except Exception as e:
+
+                st.error(
+                    "The POS data could not be processed."
+                )
+
+                st.exception(e)
+
 # =========================================================
 # INVENTORY
 # =========================================================
