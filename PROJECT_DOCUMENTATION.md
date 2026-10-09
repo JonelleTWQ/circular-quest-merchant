@@ -1,94 +1,428 @@
-# Circular Quest — System Design and Technical Documentation
+# Circular Quest — System Architecture & Technical Documentation
 
-**Project type:** Sustainability hackathon MVP  
-**Focus:** SDG 12 - Circular retail and responsible consumption  
-**Document version:** 1.0  
-**Status:** Merchant prototype operational; consumer integration in progress
+**Version:** 2.0 · **Updated:** 9 October 2026  
+**Project:** SDG 12 circular retail hackathon prototype  
+**Repository:** `circular-quest-merchant` · **Backend project:** `SDG Project` (Supabase)
 
-> **Scope:** Receipt scanning is AI-assisted. The merchant-side POS integration is CSV/manual, not a live commercial POS connector.
+> **Scope and status:** This document describes the supplied merchant `app.py`, `ESG_SETUP.sql`, the carbon catalogue, and the intended consumer integration. The merchant-side features have been implemented in the supplied prototype code; live production deployment, consumer integration, external POS connections, and scientifically validated carbon savings are **not** asserted. No GIS, board game, or mandatory QR code is part of the current scope.
 
 ## 1. Executive summary
 
-Circular Quest connects participating retailers with consumers interested in purchasing verified surplus inventory. Merchants register surplus manually or upload inventory exports from different POS systems. The merchant portal standardises disparate CSV column names, allows merchants to select eligible surplus, and publishes approved inventory into a shared Supabase database. The consumer app displays retailers and their available surplus, extracts purchase details from uploaded receipt images using AI, matches those details to registered surplus, and displays an estimated environmental impact.
+Circular Quest is a two-sided platform for redistributing **eligible retail surplus**. Merchants register surplus manually or import exports from differently structured POS/inventory systems. A shared Supabase backend stores merchant, outlet, inventory, carbon-reference, and transaction information. The consumer app (developed separately by Wein) is intended to display participating retailers and available surplus and use AI to extract purchased items from receipt images. Environmental information is displayed as **illustrative estimates**, not certified carbon savings.
 
-The project aims to redirect collectible-driven engagement toward reducing waste. Trading cards and points are part of the broader product concept, but their complete issuance/redemption workflow is not yet confirmed as implemented.
+The merchant portal also records demo surplus sales and generates **GRI 306-informed** business metrics: confirmed units sold, revenue recovered, discounted value, redistributed mass, scenario-based potential waste avoidance, and illustrative avoided CO₂e.
 
-### Goals
+### Objectives
 
-1. Onboard merchants without requiring them to replace their POS systems.
-2. Maintain a consistent surplus inventory data model across retailers.
-3. Give consumers visibility into participating retailers and eligible stock.
-4. Support AI-assisted receipt extraction and surplus matching.
-5. Demonstrate safeguards against retailers declaring unlimited surplus.
-6. Provide a practical foundation for future retailer API integrations.
+1. Support retailers with different POS column formats without replacing their existing systems.
+2. Distinguish ordinary inventory from pre-declared, eligible surplus batches.
+3. Expose consistent surplus inventory for a separate consumer interface.
+4. Monitor merchant surplus levels against a historical allowance.
+5. Capture completed sales and produce transparent, auditable **prototype** ESG metrics.
+6. Separate observed activity from modelled environmental impact.
 
-### Non-goals for the hackathon MVP
-
-- Direct integration with commercial POS vendors.
-- Production-grade proof of receipt authenticity or purchase provenance.
-- Full carbon life-cycle assessment for every SKU.
-- GIS/location-based exploration or board-game mechanics.
-- Payment processing or a commercial e-commerce checkout.
-
-## 2. High-level system architecture
+## 2. High-level architecture
 
 ```mermaid
 flowchart LR
-    subgraph MerchantSources[Retailer systems]
-        A[Manual merchant entry]
-        B[POS or inventory CSV export]
-        C[Future POS API connector]
-    end
-    subgraph MerchantApp[Merchant portal - Streamlit]
-        D[Manual surplus form]
-        E[CSV upload and column mapping]
-        F[Eligibility and allowance checks]
-        G[Inventory and accountability dashboard]
-    end
-    subgraph Backend[Shared Supabase backend]
-        H[(PostgreSQL database)]
-        I[Consumer inventory view]
-        J[Row-level security policies]
-    end
-    subgraph ConsumerApp[Consumer app - Wein]
-        K[Retailer and surplus listings]
-        L[Receipt image upload]
-        M[AI receipt text extraction]
-        N[Surplus matching and impact display]
-    end
-    A --> D
-    B --> E
-    C -. planned .-> E
-    D --> F
-    E --> F
-    F --> H
-    H --> G
-    H --> I
-    J -. controls access .-> H
-    I --> K
-    L --> M --> N
-    I --> N
+  subgraph R[Retailers]
+    R1[Manual product entry]
+    R2[POS CSV exports]
+    R3[Future POS API]
+  end
+  subgraph M[Merchant portal - Streamlit / Python]
+    M1[Manual registration]
+    M2[CSV mapping and saved templates]
+    M3[Eligibility and cap checks]
+    M4[Inventory / accountability]
+    M5[Demo sale recording and ESG insights]
+  end
+  subgraph S[Supabase / PostgreSQL]
+    S1[(Merchant, outlet and surplus tables)]
+    S2[(Carbon reference catalogue)]
+    S3[(Sales ledger)]
+    S4[Consumer inventory view]
+    S5[record_surplus_sale RPC]
+  end
+  subgraph C[Consumer app - separate workstream]
+    C1[Retailer and surplus listings]
+    C2[Receipt image / AI extraction]
+    C3[Match receipt to eligible surplus]
+    C4[Illustrative CO2e feedback]
+  end
+  R1 --> M1 --> M3
+  R2 --> M2 --> M3
+  R3 -. proposed .-> M2
+  M3 --> S1
+  S1 --> M4
+  S1 --> S4 --> C1
+  C2 --> C3
+  S4 --> C3 --> C4
+  S2 --> M1
+  S2 --> M2
+  M5 --> S5 --> S3
+  S5 --> S1
+  S3 --> M5
 ```
 
-**Interpretation:** The merchant portal writes normalised surplus batches; the consumer app reads a restricted, eligible inventory projection. The two apps communicate through shared backend data, not direct app-to-app calls.
+**Key design choice:** The consumer app does not need to know whether a batch was entered manually or imported from a CSV. It reads the same standardised inventory fields.
 
 ## 3. Technology stack
 
 | Layer | Technology | Purpose | Status |
 |---|---|---|---|
-| Merchant frontend | Python + Streamlit | Dashboard, forms, CSV importer, inventory and accountability | Implemented |
-| Merchant data handling | Pandas | CSV parsing, field mapping, type conversion, previews | Implemented |
-| Shared backend | Supabase PostgreSQL | Relational storage, joins, data consistency | Implemented |
-| Database client | `supabase-py` | Read/write database operations from Streamlit | Implemented |
-| Deployment | GitHub + Streamlit Community Cloud | Source control and hosted merchant portal | Implemented |
-| Secrets | Streamlit Secrets | Stores Supabase URL and client key outside GitHub | Implemented |
-| Consumer inventory interface | Supabase view `consumer_inventory` | Filters and joins eligible surplus for consumer display | Proposed / verify deployment |
-| Consumer frontend | Wein's app | Retailer listing, receipt upload, impact results | Under development; exact framework TBD |
-| Receipt AI | Model/OCR service selected by consumer team | Extract merchant, products, quantities and transaction details | Planned / consumer-side implementation TBD |
-| Access control | Supabase RLS and future merchant authentication | Restrict data visibility and writes | Prototype policies only; hardening pending |
-| Future API integration | HTTP API or Supabase Edge Functions | Accept standardised submissions from POS partners | Proposed |
+| Merchant UI | Streamlit | Web-based merchant dashboard and forms | In supplied code |
+| Backend logic | Python | Validation, transformations, calculations | In supplied code |
+| CSV processing | Pandas | Parse, map and standardise POS exports | In supplied code |
+| Database | Supabase PostgreSQL | Shared relational persistence | Set up in project |
+| Client library | `supabase-py` | Python database queries and RPC calls | In supplied code |
+| Database function | PostgreSQL PL/pgSQL | Transactional demo checkout | In supplied SQL |
+| Carbon catalogue | CSV imported to `carbon_reference` | Reference footprints and scenario estimates | Imported by team |
+| Deployment | GitHub + Streamlit Community Cloud | Source control and hosting | Used by team |
+| Consumer UI | Separately developed app | Browse inventory, scan receipts, display impact | Integration to verify |
+| Receipt recognition | AI-based image extraction | Parse merchant, items, quantities, transaction ID | Consumer-side plan |
+| Commercial POS API | Not connected | Potential future automation | Future |
 
-### Current GitHub merchant app dependencies
+**Secrets:** `SUPABASE_URL` and `SUPABASE_KEY` are stored in Streamlit Secrets, not in committed source code. Use a publishable/anon key, not a service-role key.
+
+## 4. Functional modules
+
+### 4.1 Merchant selection and dashboard
+
+The demo merchant selector switches among fictional merchants such as GreenMart, FreshBasket and EcoGrocer. The dashboard reads active/partially eligible batches, remaining quantities, the latest allowance and accountability indicators. **This selector is not merchant authentication.**
+
+### 4.2 Manual surplus registration
+
+A merchant chooses an outlet and supplies SKU, name, category, quantity, normal/surplus prices, reason, expiry and eligibility dates. The ESG-enhanced version additionally collects item weight, condition, expected unsold fate, and an assumed disposal probability. The merchant may select an item-based carbon reference from the catalogue. Validation precedes insert into `surplus_batches`.
+
+### 4.3 POS CSV mapping and bulk registration
+
+The importer accepts CSV exports with different column names. A merchant maps SKU, product name, quantity, price and expiry date to the Circular Quest schema; the mapping can be saved in `pos_mappings`. Merchants then **select which rows are actually surplus** rather than automatically declaring the entire POS export surplus. Selected batches undergo eligibility and allowance checks before insertion. Product-category and carbon selection are handled in the enhanced workflow.
+
+```mermaid
+flowchart TD
+  A[Retailer exports CSV] --> B[Upload file]
+  B --> C{Saved mapping fits?}
+  C -->|Yes| D[Apply saved field mapping]
+  C -->|No| E[Map source columns]
+  E --> F[Optionally save mapping]
+  F --> D
+  D --> G[Standardise and validate data types]
+  G --> H[Merchant selects genuinely surplus rows]
+  H --> I[Enter surplus metadata / ESG assumptions]
+  I --> J{Eligibility and allowance check}
+  J -->|Eligible| K[Register approved quantity]
+  J -->|Partial| L[Register eligible portion and record excess]
+  J -->|Not eligible| M[Reject or mark ineligible]
+  K --> N[(surplus_batches)]
+  L --> N
+```
+
+**Example mappings:** `ItemName` and `description` both become `product_name`; `QtyLeft` and `remaining_stock` both become `quantity`.
+
+### 4.4 Inventory management
+
+Displays registered, eligible and remaining units, status, price, category, deadline, and illustrative CO₂e per unit when available. `quantity_registered` is **not** interchangeable with `quantity_eligible` or `quantity_remaining`.
+
+### 4.5 Surplus accountability
+
+Uses `merchant_monthly_stats` for historical procurement/sales/surplus rates and monthly caps. The dashboard flags deviations as green/amber/red based on **prototype thresholds**, not an externally certified audit methodology. The cap is intended to prevent unlimited incentive eligibility as surplus rises.
+
+**Limitations:** Historical data are supplied by merchants; the prototype does not independently verify procurement or prevent deliberate misclassification. App-level allowance checks are not a production-grade concurrency or anti-fraud control.
+
+### 4.6 ESG Insights and demo sales ledger
+
+The ESG page records a simulated **completed sale** using an eligible batch, quantity and unique merchant receipt/transaction reference. It calls `record_surplus_sale` in Supabase. The database function locks the batch row, checks eligibility/stock, inserts a snapshot into `surplus_sales`, and reduces remaining inventory **within one transaction**. This is not a real POS integration or independent receipt verification.
+
+```mermaid
+sequenceDiagram
+  actor Merchant
+  participant UI as Streamlit ESG Insights
+  participant RPC as Supabase record_surplus_sale
+  participant DB as PostgreSQL
+  Merchant->>UI: Choose eligible batch, quantity, receipt ID
+  UI->>RPC: Record completed sale
+  RPC->>DB: Lock surplus batch and validate
+  alt Valid and stock sufficient
+    RPC->>DB: Insert sale snapshot
+    RPC->>DB: Decrease quantity_remaining
+    DB-->>RPC: Commit transaction
+    RPC-->>UI: Sale ID / success
+  else Invalid or duplicate
+    DB-->>RPC: Error and rollback
+    RPC-->>UI: Error
+  end
+  UI-->>Merchant: Refresh ESG metrics
+```
+
+## 5. Database design
+
+```mermaid
+erDiagram
+  merchants ||--o{ outlets : operates
+  merchants ||--o{ surplus_batches : registers
+  outlets ||--o{ surplus_batches : stocks
+  merchants ||--o{ merchant_monthly_stats : reports
+  merchants ||--o{ pos_mappings : saves
+  merchants ||--o{ surplus_sales : records
+  surplus_batches ||--o{ surplus_sales : sold_as
+  surplus_batches ||--o{ claims : legacy_claims
+  merchants {
+    bigint id PK
+    text merchant_name
+    text integration_type
+    text status
+  }
+  outlets {
+    bigint id PK
+    bigint merchant_id FK
+    text outlet_name
+    boolean active
+  }
+  surplus_batches {
+    bigint id PK
+    bigint merchant_id FK
+    bigint outlet_id FK
+    text merchant_sku
+    text product_name
+    bigint quantity_registered
+    bigint quantity_eligible
+    bigint quantity_remaining
+    numeric unit_weight_kg
+    numeric disposal_probability
+    numeric co2e_per_unit
+    text expected_unsold_fate
+    text status
+  }
+  pos_mappings {
+    bigint id PK
+    bigint merchant_id FK
+    text mapping_name
+    text sku_column
+    text name_column
+    text quantity_column
+    text price_column
+    text expiry_column
+  }
+  merchant_monthly_stats {
+    bigint id PK
+    bigint merchant_id FK
+    date month
+    bigint units_procured
+    bigint units_surplus
+    bigint eligible_surplus_cap
+  }
+  surplus_sales {
+    bigint id PK
+    bigint merchant_id FK
+    bigint surplus_batch_id FK
+    text receipt_ref
+    integer quantity
+    numeric unit_sale_price
+    numeric unit_weight_kg
+    numeric disposal_probability
+    numeric co2e_per_unit
+    boolean refunded
+  }
+  claims {
+    bigint id PK
+    text claim_code
+    bigint surplus_batch_id FK
+    boolean redeemed
+  }
+```
+
+### Main tables and responsibilities
+
+| Table / view | Function |
+|---|---|
+| `merchants` | Merchant profile, integration type and status |
+| `outlets` | Branches linked to merchants |
+| `surplus_batches` | Canonical registered inventory, eligible stock and ESG metadata |
+| `pos_mappings` | Merchant-specific reusable CSV column mappings |
+| `merchant_monthly_stats` | Historical procurement, sales, surplus and caps |
+| `carbon_reference` | General product/category carbon footprints and scenario avoided-CO₂e estimates |
+| `surplus_sales` | Completed demo transactions with price, mass and emissions snapshots |
+| `claims` | Earlier QR-claim prototype schema; **not required** for current receipt-AI approach |
+| `consumer_inventory` | Intended filtered read interface for consumer listings; verify that the view exists in deployed Supabase |
+
+`carbon_reference` is a lookup catalogue and **not necessarily linked through a foreign key** to `surplus_batches`. The app selects a reference and copies its per-item estimate to the batch; that is a snapshot, not a persistent relational join.
+
+### Important batch fields
+
+- `quantity_registered`: Merchant-declared surplus units.
+- `quantity_eligible`: Units approved for Circular Quest incentives.
+- `quantity_remaining`: Eligible stock still available for sale.
+- `unit_weight_kg`: Product mass per sold item; may be null.
+- `product_condition`: New, near-expiry, refurbished, etc., as merchant-declared.
+- `expected_unsold_fate`: Disposed, donated, stored, or unknown.
+- `disposal_probability`: Scenario assumption between 0 and 1; should be supported by historical records in a real deployment.
+- `co2e_per_unit`: **Illustrative scenario-based avoided CO₂e**, not the full product lifecycle footprint.
+- `registered_at`, `eligible_until`, `status`: Registration and eligibility lifecycle.
+
+## 6. Consumer integration contract
+
+The consumer app is intended to read **only** approved, currently available surplus, with fields such as:
+
+```json
+{
+  "batch_id": 101,
+  "merchant_name": "FreshBasket",
+  "outlet_name": "FreshBasket Orchard",
+  "merchant_sku": "YOG101",
+  "product_name": "Strawberry Yogurt",
+  "category": "Food",
+  "quantity_remaining": 10,
+  "original_price": 2.80,
+  "surplus_price": 1.68,
+  "eligible_until": "2026-10-13",
+  "co2e_per_unit": null
+}
+```
+
+*Example values are illustrative and not a claim about live data.*
+
+Recommended inventory filter: merchant and outlet active; batch status `active` or `partially_eligible`; `quantity_remaining > 0`; `quantity_eligible > 0`; `eligible_until >= current_date`. The view can enforce these filters; the consumer must not rely on UI filtering alone.
+
+### Receipt recognition workflow (planned / to validate)
+
+```mermaid
+flowchart TD
+  A[Consumer uploads receipt image] --> B[AI extracts merchant, outlet, items, quantity, receipt ID]
+  B --> C[Normalize extracted product labels / SKU]
+  C --> D[Query eligible consumer inventory]
+  D --> E{Merchant and item match?}
+  E -->|No / ambiguous| F[Ask for review; no impact credit]
+  E -->|Yes| G[Show eligible item and illustrative impact]
+  G --> H[Optional: reconcile with recorded merchant sale]
+  H --> I[Display feedback / points if verified]
+```
+
+**Crucial distinction:** AI extraction does **not** prove that a receipt is authentic, unique, or that the sold units were part of a specific surplus batch. Matching product names alone is weaker than transaction-level verification. The current demo sales ledger and consumer receipt scanning are not automatically linked unless a shared receipt ID and reconciliation flow are explicitly implemented and tested. Do not claim verified redemption or fraud prevention until that exists.
+
+## 7. ESG reporting design (GRI 306-informed)
+
+The teammate's ESG proposal distinguishes **confirmed redistribution**, **potential waste prevention**, and **estimated environmental impact**. This follows the spirit of GRI 306: Waste 2020, but does **not** mean the output is a compliant or audited GRI 306 disclosure. GRI 306-4 requires waste diversion information and supporting classification; ordinary surplus sales do not automatically qualify as reported waste diverted from disposal.
+
+### Input → calculation → output
+
+```mermaid
+flowchart LR
+  A[Registered product: category, weight, condition, expected fate] --> C[Sale ledger: quantity, price, date, refund]
+  B[Carbon catalogue: scenario per-item CO2e] --> D[ESG calculations]
+  C --> D
+  E[Assumed disposal probability] --> D
+  D --> F[Confirmed units / revenue / discounts]
+  D --> G[Known redistributed mass]
+  D --> H[Potential waste avoided - scenario]
+  D --> I[Illustrative avoided CO2e]
+  F --> J[GRI 306-informed ESG dashboard]
+  G --> J
+  H --> J
+  I --> J
+```
+
+### Calculation definitions
+
+Let sale `i` have quantity `qᵢ`, discounted unit price `pᵢ`, original unit price `oᵢ`, item mass `wᵢ`, assumed disposal probability `dᵢ`, and illustrative avoided CO₂e factor `eᵢ`. The calculations below exclude refunded sales.
+
+| Metric | Formula | Evidence status |
+|---|---|---|
+| Confirmed units sold | `Σ qᵢ` | Recorded demo sales; not independently POS verified |
+| Revenue recovered | `Σ qᵢ × pᵢ` | Based on recorded sales prices |
+| Customer discount value | `Σ qᵢ × max(0, oᵢ − pᵢ)` | Based on listed vs sale prices |
+| Known redistributed mass (kg) | `Σ qᵢ × wᵢ` for known weights | Recorded/merchant-supplied weights |
+| Potential waste avoided (kg) | `Σ qᵢ × wᵢ × dᵢ`, only if expected fate = `Disposed` | Scenario estimate, **not verified waste diversion** |
+| Illustrative avoided CO₂e (kg) | `Σ qᵢ × eᵢ` for known factors | Scenario estimate, **not certified GHG savings** |
+
+Unknown weights or carbon factors are **excluded** from their respective totals and disclosed as missing coverage, not silently treated as measured zero. The ESG page reports missing unit counts.
+
+### Worked example (hypothetical)
+
+Two yogurts sold; item mass `0.15 kg`, original price `S$2.80`, surplus price `S$1.68`, expected unsold fate `Disposed`, assumed disposal probability `0.50`:
+
+- Confirmed units: **2**.
+- Revenue recovered: `2 × 1.68 = S$3.36`.
+- Discount value: `2 × (2.80 − 1.68) = S$2.24`.
+- Redistributed mass: `2 × 0.15 = 0.30 kg`.
+- Potential waste avoided: `2 × 0.15 × 0.50 = 0.15 kg` (**scenario only**).
+- Illustrative CO₂e: `2 × e`, only if an appropriate per-item factor `e` was selected.
+
+### Carbon catalogue methodology and limitations
+
+The expanded `carbon_reference` dataset contains **552 entries** spanning general retail categories and package variants. Some entries derive from published lifecycle references; others are category proxies or illustrative assumptions. The catalogue's `assumed_displacement_factor` is a modelling assumption, not an observed probability. The dataset's `avoided_co2e_kg_per_item` therefore **must not be presented as verified emissions saved**.
+
+The app uses **item-based references** for `co2e_per_unit`. A reference measured per kilogram requires actual item weight and unit conversion; it must not be treated as per item automatically. Product lifecycle footprints are not identical to emissions avoided by selling already-produced surplus.
+
+### Reporting mapping
+
+| Prototype output | Potential GRI 306 relevance | Caveat |
+|---|---|---|
+| Surplus reason, category, condition | GRI 306-1 / 306-2 narrative | Merchant declarations need validation |
+| Measures to prevent and manage waste | GRI 306-2 | Describe processes, not just totals |
+| Recorded mass sold | Supporting circularity indicator | Not equivalent to waste generated under 306-3 |
+| Potential waste avoided | Supporting estimate | Not automatically GRI 306-4 waste diverted |
+| Disposal records | Could inform GRI 306-5 | Actual disposal evidence not captured comprehensively |
+
+## 8. Merchant eligibility and accountability logic
+
+```mermaid
+flowchart TD
+  A[Merchant declares a surplus batch] --> B{Basic fields / price / dates valid?}
+  B -->|No| R[Reject]
+  B -->|Yes| C{Reason-specific eligibility rule passes?}
+  C -->|No| R
+  C -->|Yes| D[Read latest merchant monthly cap]
+  D --> E[Subtract eligible units registered in that month]
+  E --> F{Allowance remaining?}
+  F -->|None| G[Record as ineligible]
+  F -->|Partial| H[Record partial eligible quantity]
+  F -->|Sufficient| I[Record active eligible batch]
+  G --> J[(surplus_batches)]
+  H --> J
+  I --> J
+```
+
+Prototype thresholds include a configurable-in-principle **seven-day near-expiry check** and an illustrative green/amber/red historical surplus comparison. The existing implementation uses the latest monthly statistics row; this is suitable for a controlled demo but is not an audited forecasting or procurement baseline.
+
+**Known issue:** The eligibility check, registration, and allowance summation are not performed as one database transaction. Two concurrent registrations could over-allocate the cap. This requires server-side enforcement before production.
+
+## 9. Data quality, integrity and security
+
+- **Demo-only merchant selection:** Users can select another merchant; no merchant login isolation is enforced in the prototype.
+- **RLS:** Supabase policies govern access. Some earlier demonstration policies allow anonymous reads/writes; these must be tightened before public use.
+- **Sale RPC:** `record_surplus_sale` uses a `SECURITY DEFINER` function with demo permissions. It is not a production-safe merchant authorization model.
+- **Receipts:** Receipt AI is subject to OCR errors, ambiguity, reuse, alteration and unmatched product names.
+- **Carbon factors:** Sources, system boundaries and displacement assumptions must be reviewed for real claims.
+- **ESG:** Merchant-entered disposal assumptions do not prove that waste was prevented.
+- **Refunds:** The schema contains a `refunded` flag and the dashboard excludes flagged sales; the current merchant UI does not implement a full verified refund/reversal workflow.
+- **Data reconciliation:** Procurement, inventory and POS history can be compared in future, but the demo does not automatically verify those records against independent sources.
+
+## 10. Deployment and setup
+
+### Required repository files
+
+```text
+circular-quest-merchant/
+├── app.py                         # Merchant Streamlit app
+├── requirements.txt               # streamlit, supabase, pandas
+├── PROJECT_DOCUMENTATION.md       # This document (rename on upload)
+└── README.md                      # Optional short project landing page
+```
+
+### Supabase configuration
+
+1. Create or reuse the `SDG Project` Supabase project.
+2. Confirm tables `merchants`, `outlets`, `surplus_batches`, `merchant_monthly_stats`, `pos_mappings`, and `carbon_reference` exist.
+3. Import the expanded carbon CSV into `carbon_reference` with the expected columns.
+4. Run `ESG_SETUP.sql` to add batch ESG fields, create `surplus_sales` and the `record_surplus_sale` function.
+5. Use `DEMO_FIX_FRESHBASKET.sql` **only for fictional, unsold demo batches** if their test dates/allowances need resetting; never use it on real goods or completed transactions.
+6. Configure appropriate RLS read/write permissions for the demo; do not mistake these for production security.
+7. Configure Streamlit Secrets: `SUPABASE_URL` and `SUPABASE_KEY`.
+8. Deploy `app.py` on Streamlit Community Cloud using the GitHub repository.
+9. Verify the optional `consumer_inventory` view exists before telling the consumer developer to query it; it is not created by `ESG_SETUP.sql`.
+
+### Dependencies
 
 ```text
 streamlit
@@ -96,445 +430,45 @@ supabase
 pandas
 ```
 
-The consumer team's framework and AI provider should be documented after Wein confirms them. Do not assume a particular model or API is already integrated.
+## 11. End-to-end demonstration and acceptance checklist
 
-## 4. Application components
-
-### 4.1 Merchant portal
-
-**Dashboard:** Shows active surplus units, active batches, merchant integration type, eligibility allowance and accountability status.
-
-**Register Surplus:** Allows a merchant to enter SKU, product name, category, quantity, original and surplus prices, reason, expiry date and eligibility end date. Performs prototype validation and inserts the batch into Supabase.
-
-**POS Upload:** Accepts CSV exports, allows mapping of source columns to Circular Quest fields, saves reusable mappings, standardises rows, allows merchants to select genuine surplus, and applies eligibility/allowance checks before insertion.
-
-**Inventory:** Displays registered batches, quantities, eligibility, prices and status.
-
-**Accountability:** Displays historical surplus rates, baseline comparisons, current caps and anomaly indicators.
-
-**Important limitations:** The demo merchant selector is not authentication. The current eligibility rules are illustrative; the current cap allocation is performed in application code, not a database transaction. These limitations matter if multiple merchants or simultaneous uploads use the system.
-
-### 4.2 Consumer application
-
-Expected functions, subject to confirmation from Wein:
-
-1. Display participating retailer names and surplus inventory.
-2. Let consumers upload or photograph a receipt.
-3. Use AI to extract merchant/outlet, transaction details and line items.
-4. Match extracted line items against registered surplus.
-5. Show quantities and illustrative estimated CO2e impact.
-6. Potentially display points and trading-card progress as part of the larger game concept.
-
-**Critical distinction:** Receipt text extraction is not receipt authentication. A receipt mentioning a discounted SKU does not prove the specific unit was registered surplus. Exact matching should be described as a demo-level eligibility check, not fraud-proof verification.
-
-## 5. Database design
-
-### 5.1 Entity relationship diagram
-
-```mermaid
-erDiagram
-    MERCHANTS ||--o{ OUTLETS : operates
-    MERCHANTS ||--o{ SURPLUS_BATCHES : declares
-    OUTLETS ||--o{ SURPLUS_BATCHES : holds
-    MERCHANTS ||--o{ MERCHANT_MONTHLY_STATS : reports
-    MERCHANTS ||--o{ POS_MAPPINGS : configures
-    SURPLUS_BATCHES ||--o{ CLAIMS : references
-
-    MERCHANTS {
-        bigint id PK
-        text merchant_name
-        text integration_type
-        text status
-        timestamptz created_at
-    }
-    OUTLETS {
-        bigint id PK
-        bigint merchant_id FK
-        text outlet_name
-        text address
-        boolean active
-        timestamptz created_at
-    }
-    SURPLUS_BATCHES {
-        bigint id PK
-        bigint merchant_id FK
-        bigint outlet_id FK
-        text merchant_sku
-        text product_name
-        text category
-        bigint quantity_registered
-        bigint quantity_eligible
-        bigint quantity_remaining
-        numeric original_price
-        numeric surplus_price
-        text surplus_reason
-        date expiry_date
-        date eligible_until
-        text status
-        numeric co2e_per_unit
-        timestamptz registered_at
-    }
-    POS_MAPPINGS {
-        bigint id PK
-        bigint merchant_id FK
-        text mapping_name
-        text sku_column
-        text name_column
-        text quantity_column
-        text price_column
-        text expiry_column
-        timestamptz created_at
-    }
-    MERCHANT_MONTHLY_STATS {
-        bigint id PK
-        bigint merchant_id FK
-        date month
-        bigint units_procured
-        bigint units_normal_sales
-        bigint units_surplus
-        bigint eligible_surplus_cap
-        timestamptz created_at
-    }
-    CLAIMS {
-        bigint id PK
-        text claim_code
-        bigint merchant_id FK
-        bigint outlet_id FK
-        bigint surplus_batch_id FK
-        bigint quantity
-        numeric co2e_saved
-        bigint points_awarded
-        boolean redeemed
-        timestamptz created_at
-        timestamptz redeemed_at
-    }
-```
-
-`claims` was created during an earlier QR-based prototype design. It is **not the current AI receipt verification workflow**; retain it as legacy/prototype schema until the team decides whether a transaction-verification table is required.
-
-### 5.2 Key table semantics
-
-| Table | Row represents | Main consumer use |
+| # | Test | Expected result |
 |---|---|---|
-| `merchants` | One participating retailer company | Merchant name |
-| `outlets` | One retailer branch | Outlet name |
-| `surplus_batches` | A declared surplus quantity at one outlet, for one SKU/batch | Product, price, availability, eligibility |
-| `pos_mappings` | One reusable source-to-standard CSV field mapping | None; merchant-only |
-| `merchant_monthly_stats` | Merchant monthly procurement/sales/surplus summary | None; merchant-only |
-| `claims` | A legacy purchase-claim record | Not used by current receipt flow |
-
-**Quantity definitions:** `quantity_registered` is the merchant-declared amount; `quantity_eligible` is the amount approved for incentives; `quantity_remaining` is the remaining eligible quantity available for display. `quantity_remaining` should never be treated as total physical stock at the retailer.
-
-### 5.3 Consumer inventory contract
-
-The proposed `consumer_inventory` view exposes only the required joined and filtered fields:
-
-| Field | Meaning |
-|---|---|
-| `batch_id` | Unique surplus batch |
-| `merchant_id`, `merchant_name` | Retailer identity |
-| `outlet_id`, `outlet_name` | Branch identity |
-| `merchant_sku`, `product_name`, `category` | Product identification |
-| `quantity_remaining` | Available eligible units |
-| `original_price`, `surplus_price` | Display prices |
-| `eligible_until` | Eligibility deadline |
-| `co2e_per_unit` | Optional illustrative environmental factor |
-
-Recommended eligibility filter:
-
-```sql
-where sb.status in ('active', 'partially_eligible')
-  and sb.quantity_remaining > 0
-  and sb.quantity_eligible > 0
-  and sb.eligible_until >= current_date
-  and m.status = 'active'
-  and o.active = true
-```
-
-A view created with `security_invoker = true` respects the underlying table permissions. It still requires appropriate SELECT policies on source tables; avoid granting consumer access to sensitive merchant statistics or write operations.
-
-## 6. Workflow diagrams
-
-### 6.1 Merchant onboarding and CSV normalisation
-
-```mermaid
-flowchart TD
-    A[Merchant opens portal] --> B{Input method}
-    B -->|Manual| C[Enter surplus batch]
-    B -->|CSV| D[Upload POS export]
-    D --> E{Saved mapping exists?}
-    E -->|Yes| F[Apply saved mapping]
-    E -->|No| G[Map source column names]
-    G --> H[Optionally save mapping]
-    H --> F
-    F --> I[Convert into standard fields]
-    I --> J[Select genuine surplus rows]
-    J --> K[Set reason, discount, outlet and deadline]
-    C --> L[Validate eligibility]
-    K --> L
-    L --> M{Eligible?}
-    M -->|No| N[Reject or flag for review]
-    M -->|Yes| O[Check merchant allowance]
-    O --> P[Determine approved quantity]
-    P --> Q[(Supabase surplus_batches)]
-    Q --> R[Consumer listing becomes available]
-```
-
-### 6.2 Consumer discovery and receipt scan
-
-```mermaid
-sequenceDiagram
-    participant Merchant as Merchant Portal
-    participant DB as Supabase
-    participant Consumer as Consumer App
-    participant AI as Receipt Extraction AI
-
-    Merchant->>DB: Register eligible surplus batch
-    Consumer->>DB: Request eligible inventory
-    DB-->>Consumer: Retailer and surplus listings
-    Consumer->>AI: Upload receipt image
-    AI-->>Consumer: Extract merchant, SKU/name, quantity, transaction data
-    Consumer->>DB: Read eligible surplus for matching
-    DB-->>Consumer: Candidate registered batches
-    Consumer->>Consumer: Match merchant/outlet and line items
-    alt Matching eligible batch found
-        Consumer-->>Consumer: Display provisional impact estimate
-    else No reliable match
-        Consumer-->>Consumer: Show unmatched / needs review
-    end
-```
-
-**Receipt matching is provisional.** Without POS transaction verification or a merchant-generated purchase token, the system cannot establish authenticity, stop reusing a receipt, or safely deduct inventory based on a photo alone.
-
-### 6.3 Merchant accountability
-
-```mermaid
-flowchart TD
-    A[Historical procurement and surplus data] --> B[Calculate baseline surplus rate]
-    C[Current monthly surplus figures] --> D[Calculate current rate]
-    B --> E[Compare rates]
-    D --> E
-    E --> F{Variance against baseline}
-    F -->|Within threshold| G[Green: normal monitoring]
-    F -->|Moderate increase| H[Amber: investigate and retain cap]
-    F -->|Large increase| I[Red: flag for review and potential restriction]
-    J[Monthly eligible surplus cap] --> K[Subtract already approved units]
-    K --> L[Approve at most remaining allowance]
-    L --> M[Record approved vs unapproved quantity]
-```
-
-The Green/Amber/Red thresholds and seven-day near-expiry rule are demonstration heuristics, not validated universal policy. A real system needs category-specific rules, audit evidence, exemptions for unusual events, and enforcement at the database/service layer.
-
-## 7. POS interoperability design
-
-### 7.1 Source schemas
-
-**FreshBasket sample:**
-
-```csv
-SKU,ItemName,QtyLeft,ExpiryDate,RetailPrice
-YOG101,Strawberry Yogurt,12,2026-10-12,2.80
-```
-
-**Retailer B sample:**
-
-```csv
-product_code,description,remaining_stock,use_by,standard_price
-FRU991,Banana Pack,14,2026-10-12,3.60
-```
-
-Both are mapped into the common structure:
-
-```json
-{
-  "merchant_sku": "YOG101",
-  "product_name": "Strawberry Yogurt",
-  "quantity": 12,
-  "original_price": 2.80,
-  "expiry_date": "2026-10-12"
-}
-```
-
-The mapping is saved per merchant and format. A future upload with the same columns can reuse it. A mapping does not automatically prove the products are surplus: the merchant must select the relevant rows and provide surplus details before registration.
-
-### 7.2 Import validation
-
-Recommended checks include:
-
-- Required fields present and mapped to distinct source columns.
-- SKU and product name not blank.
-- Quantity is a positive whole number.
-- Prices are non-negative and surplus price is below original price.
-- Dates are parseable and deadlines have not passed.
-- Duplicate SKU/batch rows are detected and reviewed.
-- Product category and surplus reason are validated independently.
-- Approved quantities do not exceed remaining monthly allowance.
-- Every import produces a per-row success/error summary.
-
-**Current simplification:** The bulk importer assumes the `Food` category and uses a shared reason/discount/deadline for selected rows. Category-specific mapping and row-level editing are recommended future improvements.
-
-## 8. Receipt extraction and environmental impact
-
-### 8.1 Extraction contract (proposed)
-
-```json
-{
-  "merchant": "FreshBasket",
-  "outlet": "FreshBasket Orchard",
-  "transaction_id": "FB-001",
-  "purchase_date": "2026-10-09",
-  "items": [
-    {
-      "sku": "YOG101",
-      "product": "Strawberry Yogurt",
-      "quantity": 2
-    }
-  ]
-}
-```
-
-Receipt images may not contain SKU, outlet or unique transaction identifiers. Missing fields must remain unknown, not fabricated. Prefer matching merchant/outlet and exact SKU when available; name-only matching should be marked lower-confidence and reviewed for ambiguous cases.
-
-### 8.2 Estimated impact
-
-For the demo, if a category factor has been explicitly provided:
-
-```text
-illustrative_impact_kg_co2e = matched_quantity * co2e_per_unit
-```
-
-This is not automatically actual CO2e saved. Manufacturing emissions are generally already incurred, and avoided emissions depend on the disposal counterfactual, displacement and system boundaries. Existing `co2e_per_unit` values were entered as prototype placeholders and must be labelled illustrative. If no defensible factor is available, show `Impact estimate unavailable`.
-
-## 9. Security, data integrity and limitations
-
-The current application uses a demo merchant selector and has used permissive anonymous read/write policies for rapid testing. This is not appropriate for a public production deployment. The publishable Supabase key is not itself an authorisation boundary.
-
-Minimum requirements before wider public exposure:
-
-1. Merchant authentication and merchant-to-account ownership checks.
-2. Restrict inserts/updates to the authenticated merchant's own rows.
-3. Expose consumers only to the minimum read-only inventory fields.
-4. Use server-side transactions/functions for concurrent cap allocation and stock changes.
-5. Avoid granting anonymous writes to `surplus_batches`, `pos_mappings`, `claims` or accounting tables.
-6. Never commit Supabase secret/service-role keys or database passwords to GitHub.
-7. Minimise receipt storage and personal information; apply retention and deletion policies.
-
-**Known integrity gaps:** Current Streamlit-side cap checks can race under concurrent submissions. A user could potentially resubmit a CSV or the same batch multiple times. AI-extracted receipts can be edited, reused or misclassified. These limitations should be disclosed in the demo rather than described as solved.
-
-## 10. Deployment and repository
-
-### Merchant repository structure (current)
-
-```text
-circular-quest-merchant/
-├── app.py              # Streamlit merchant portal
-├── requirements.txt    # Python dependencies
-└── README.md           # Project overview, optional
-```
-
-### Recommended future structure
-
-```text
-circular-quest-merchant/
-├── app.py
-├── database.py
-├── services/
-│   ├── eligibility.py
-│   ├── pos_mapping.py
-│   └── accountability.py
-├── pages/
-│   ├── dashboard.py
-│   ├── inventory.py
-│   └── pos_upload.py
-├── tests/
-├── requirements.txt
-└── PROJECT_DOCUMENTATION.md
-```
-
-### Streamlit Secrets
-
-```toml
-SUPABASE_URL = "https://YOUR_PROJECT_REF.supabase.co"
-SUPABASE_KEY = "YOUR_PUBLISHABLE_OR_ANON_KEY"
-```
-
-Set these through Streamlit Community Cloud secrets, not source code. The consumer app should use its own configuration while pointing to the **same Supabase project**.
-
-## 11. Integration contract between teammates
-
-| Responsibility | Merchant developer | Consumer developer |
-|---|---|---|
-| Merchant/outlet registration | Owns | Reads names |
-| Surplus creation and eligibility | Owns | Reads eligible batches |
-| CSV POS mapping | Owns | No dependency |
-| Consumer listing schema | Agree and maintain | Implement display |
-| Receipt extraction | No dependency | Owns |
-| Receipt-to-surplus matching | Defines product identifiers | Implements matching |
-| CO2e methodology | Stores validated factor if available | Displays appropriately labelled result |
-| Inventory changes after purchase | Requires verified transaction integration | Must not decrement stock from unverified OCR |
-
-**Minimum shared fields:** `batch_id`, `merchant_id`, `merchant_name`, `outlet_id`, `outlet_name`, `merchant_sku`, `product_name`, `category`, `quantity_remaining`, `original_price`, `surplus_price`, `eligible_until`, `co2e_per_unit`.
-
-**Suggested first end-to-end test:** Register a new eligible product in the merchant portal, confirm it appears in `consumer_inventory`, show it in the consumer app, scan a controlled sample receipt, and display a correctly labelled provisional match and illustrative impact. Also test a non-surplus item and an expired batch.
-
-## 12. Testing and acceptance criteria
-
-| Test | Expected outcome | Status |
-|---|---|---|
-| Load merchant dashboard | Merchant-specific inventory and metrics display | User-confirmed working |
-| Manually register surplus | New batch appears in Supabase | User-confirmed working |
-| Upload FreshBasket CSV | Source columns map to standard fields | User-confirmed working |
-| Save and reuse FreshBasket mapping | Mapping persists in `pos_mappings` | User-confirmed working |
-| Upload Retailer B CSV | Different schema normalises successfully | User-confirmed working |
-| Apply eligibility and allowance checks | Correctly handles representative test batches | Implemented; broader testing needed |
-| Consumer inventory view | Shows only currently eligible products | Integration pending verification |
-| Consumer receipt scan | Extracts receipt and matches registered surplus | Consumer-side testing pending |
-| Reused/fake receipt rejected | Prevents duplicate or fabricated rewards | Not implemented |
-| Concurrent registration does not exceed cap | Database-level cap integrity | Not implemented |
-
-## 13. Roadmap
-
-### Immediate hackathon integration
-
-- Confirm the shared Supabase project and field names with Wein.
-- Create/test `consumer_inventory` with the required SELECT permissions.
-- Register a demo surplus batch and verify it appears in the consumer app.
-- Scan a sample receipt and show a provisional match and illustrative CO2e result.
-- Prepare a scripted demonstration of two different POS CSV formats.
-
-### After the hackathon
-
-- Merchant login and robust RLS policies.
-- Transaction-level purchase verification and anti-replay controls.
-- Database-enforced cap allocation and inventory updates.
-- Category-specific eligibility rules and carbon methodology.
-- API connectors for POS partners and automated stock reconciliation.
-- Auditable merchant reporting, fraud monitoring and operational analytics.
-
-## 14. Demo narrative
-
-1. **Different merchant systems:** FreshBasket uploads `SKU, ItemName, QtyLeft`; Retailer B uploads `product_code, description, remaining_stock`.
-2. **One standard:** Circular Quest maps both formats into common surplus fields and saves the mappings.
-3. **Verified registration (prototype):** Merchants select surplus, enter reason and price, and the app applies eligibility and monthly allowance rules.
-4. **Shared inventory:** The consumer app displays eligible products from the same Supabase database.
-5. **Consumer interaction:** AI extracts items from a sample receipt and compares them with registered surplus.
-6. **Transparent impact:** The app displays an illustrative CO2e estimate or states that no validated factor is available.
-7. **Responsible design:** Explain the cap and anomaly dashboard, while acknowledging remaining receipt and merchant-fraud limitations.
-
-## 15. Key design decisions
-
-| Decision | Rationale |
-|---|---|
-| Web-based merchant portal | Quick deployment and access without installing POS software |
-| Manual + CSV before live APIs | Works across merchants with different technical maturity |
-| Saved per-merchant column mappings | Reduces repeated setup for recurring exports |
-| Batch-level surplus records | Same SKU can be normal at one outlet and surplus at another |
-| Shared Supabase database | Avoids syncing two separate app databases |
-| Consumer read-only inventory projection | Reduces coupling and unnecessary data exposure |
-| AI receipt extraction instead of QR | Faster hackathon consumer flow, with explicit authenticity limitations |
-| Frozen baseline and allowance caps | Demonstrates safeguards against rewarding unlimited surplus |
-| Illustrative impact labels | Avoids overstating scientifically unsupported carbon savings |
-
----
-
-**Project summary:** Circular Quest's demonstrated technical contribution is a POS-agnostic merchant ingestion workflow built around saved CSV mappings, batch-level eligibility and a shared inventory database. The consumer integration extends this foundation through surplus discovery and AI-assisted receipt matching. Commercial POS integrations, secure purchase verification and validated environmental accounting remain future work.
+| 1 | Switch demo merchant | Dashboard changes to selected merchant's records |
+| 2 | Register manual eligible surplus | New batch saved with eligible quantity and dates |
+| 3 | Upload FreshBasket CSV | Map source columns and preview standardised fields |
+| 4 | Save POS mapping | Mapping reappears on next upload |
+| 5 | Upload alternate retailer CSV | Different column names map to same schema |
+| 6 | Select only surplus rows | Nonselected inventory is not registered |
+| 7 | Exceed monthly allowance | Excess units are marked ineligible or partial |
+| 8 | Select item-based carbon reference | `co2e_per_unit` saved for new batch |
+| 9 | Record demo sale | Sales ledger gains row and stock decreases atomically |
+| 10 | Reuse same receipt ID and batch | Database uniqueness constraint prevents duplicate |
+| 11 | Open ESG Insights | Sales-based metrics and missing-factor warnings display |
+| 12 | Consumer queries eligible inventory | Only available, unexpired, eligible items appear (if view configured) |
+| 13 | Consumer AI parses sample receipt | Item matching works; unresolved items are not auto-credited |
+
+**Evidence note:** These are acceptance tests to execute; inclusion here does **not** assert that every test has been performed successfully.
+
+## 12. Current boundaries and roadmap
+
+**Implemented in the supplied merchant code:** merchant switching, dashboard, manual registration, CSV import, saved mappings, inventory listing, prototype accountability, carbon-reference selection, ESG Insights, and demo sale recording via the supplied SQL RPC.
+
+**Needs joint validation with Wein:** shared inventory view, receipt extraction schema, matching logic, treatment of duplicates/refunds, and how/when CO₂e or points are awarded.
+
+**Future improvements:** authenticated merchant accounts; merchant-specific RLS; server-side cap allocation; real POS API/webhooks; verifiable receipt transaction matching; carbon-factor provenance and category-specific waste pathways; audited GRI 306 evidence and reporting; and comprehensive refund handling.
+
+## 13. Suggested hackathon demonstration script
+
+1. **Merchant A:** Enter a surplus batch manually and show its eligibility status.
+2. **Merchant B:** Upload a differently structured CSV, map columns and save the POS mapping.
+3. **Reusability:** Reupload the file and apply the saved mapping automatically.
+4. **Accountability:** Show how the monthly allowance caps eligible inventory despite higher reported surplus.
+5. **Carbon catalogue:** Select an item-based reference and explain the illustrative nature of its factor.
+6. **Sale:** Record a simulated transaction and show the corresponding stock decrement.
+7. **ESG Insights:** Show confirmed units, revenue, mass and separate scenario estimates.
+8. **Consumer handoff:** Demonstrate the separate consumer app reading eligible stock and, if working, AI parsing a test receipt.
+
+### Closing technical claim
+
+> Circular Quest demonstrates a standardised data layer for retailers with heterogeneous POS exports, a shared consumer-facing surplus catalogue, and a transparent distinction between recorded surplus sales and estimated environmental outcomes. Commercial POS integrations, verified receipt provenance and audited carbon/ESG claims remain future work.
