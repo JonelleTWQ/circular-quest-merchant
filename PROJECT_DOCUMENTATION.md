@@ -4,7 +4,7 @@
 **Project:** SDG 12 circular retail hackathon prototype  
 **Repository:** `circular-quest-merchant` · **Backend project:** `SDG Project` (Supabase)
 
-> **Scope and status:** This document describes the supplied merchant `app.py`, `ESG_SETUP.sql`, the carbon catalogue, and the intended consumer integration. The merchant-side features have been implemented in the supplied prototype code; live production deployment, consumer integration, external POS connections, and scientifically validated carbon savings are **not** asserted. No GIS, board game, or mandatory QR code is part of the current scope.
+> **Scope and status:** This document describes the supplied merchant `app.py`, `ESG_SETUP.sql`, the carbon catalogue, and the intended consumer integration. The merchant-side features have been implemented in the supplied prototype code; live production deployment, consumer integration, external POS connections, and scientifically validated carbon savings are not asserted. 
 
 ## 1. Executive summary
 
