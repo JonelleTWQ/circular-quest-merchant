@@ -1,15 +1,15 @@
 # Circular Quest — System Design and Technical Documentation
 
 **Project type:** Sustainability hackathon MVP  
-**Focus:** SDG 12 — Circular retail and responsible consumption  
+**Focus:** SDG 12 - Circular retail and responsible consumption  
 **Document version:** 1.0  
 **Status:** Merchant prototype operational; consumer integration in progress
 
-> **Scope:** Circular Quest does not include GIS, a board game, or mandatory QR claims in the current MVP. Receipt scanning is AI-assisted. The merchant-side POS integration is CSV/manual, not a live commercial POS connector.
+> **Scope:** Receipt scanning is AI-assisted. The merchant-side POS integration is CSV/manual, not a live commercial POS connector.
 
 ## 1. Executive summary
 
-Circular Quest connects participating retailers with consumers interested in purchasing verified surplus inventory. Merchants register surplus manually or upload inventory exports from different POS systems. The merchant portal standardises disparate CSV column names, allows merchants to select eligible surplus, and publishes approved inventory into a shared Supabase database. The consumer app displays retailers and their available surplus, extracts purchase details from uploaded receipt images using AI, matches those details to registered surplus, and displays an **estimated** environmental impact.
+Circular Quest connects participating retailers with consumers interested in purchasing verified surplus inventory. Merchants register surplus manually or upload inventory exports from different POS systems. The merchant portal standardises disparate CSV column names, allows merchants to select eligible surplus, and publishes approved inventory into a shared Supabase database. The consumer app displays retailers and their available surplus, extracts purchase details from uploaded receipt images using AI, matches those details to registered surplus, and displays an estimated environmental impact.
 
 The project aims to redirect collectible-driven engagement toward reducing waste. Trading cards and points are part of the broader product concept, but their complete issuance/redemption workflow is not yet confirmed as implemented.
 
@@ -323,7 +323,7 @@ flowchart TD
     L --> M[Record approved vs unapproved quantity]
 ```
 
-The Green/Amber/Red thresholds and seven-day near-expiry rule are **demonstration heuristics**, not validated universal policy. A real system needs category-specific rules, audit evidence, exemptions for unusual events, and enforcement at the database/service layer.
+The Green/Amber/Red thresholds and seven-day near-expiry rule are demonstration heuristics, not validated universal policy. A real system needs category-specific rules, audit evidence, exemptions for unusual events, and enforcement at the database/service layer.
 
 ## 7. POS interoperability design
 
@@ -355,7 +355,7 @@ Both are mapped into the common structure:
 }
 ```
 
-The mapping is saved **per merchant and format**. A future upload with the same columns can reuse it. A mapping does not automatically prove the products are surplus: the merchant must select the relevant rows and provide surplus details before registration.
+The mapping is saved per merchant and format. A future upload with the same columns can reuse it. A mapping does not automatically prove the products are surplus: the merchant must select the relevant rows and provide surplus details before registration.
 
 ### 7.2 Import validation
 
@@ -403,11 +403,11 @@ For the demo, if a category factor has been explicitly provided:
 illustrative_impact_kg_co2e = matched_quantity * co2e_per_unit
 ```
 
-**This is not automatically actual CO2e saved.** Manufacturing emissions are generally already incurred, and avoided emissions depend on the disposal counterfactual, displacement and system boundaries. Existing `co2e_per_unit` values were entered as prototype placeholders and must be labelled illustrative. If no defensible factor is available, show `Impact estimate unavailable`.
+This is not automatically actual CO2e saved. Manufacturing emissions are generally already incurred, and avoided emissions depend on the disposal counterfactual, displacement and system boundaries. Existing `co2e_per_unit` values were entered as prototype placeholders and must be labelled illustrative. If no defensible factor is available, show `Impact estimate unavailable`.
 
 ## 9. Security, data integrity and limitations
 
-The current application uses a **demo merchant selector** and has used permissive anonymous read/write policies for rapid testing. This is not appropriate for a public production deployment. The publishable Supabase key is not itself an authorisation boundary.
+The current application uses a demo merchant selector and has used permissive anonymous read/write policies for rapid testing. This is not appropriate for a public production deployment. The publishable Supabase key is not itself an authorisation boundary.
 
 Minimum requirements before wider public exposure:
 
