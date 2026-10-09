@@ -230,6 +230,54 @@ def get_remaining_allowance(merchant_id):
 
 
 # =========================================================
+# CARBON CATALOGUE (ILLUSTRATIVE ESTIMATES)
+# =========================================================
+
+@st.cache_data(ttl=300)
+def load_carbon_catalogue():
+    """Fetch all catalogue rows; Supabase REST defaults to 1000 rows."""
+    rows = []
+    start = 0
+    while True:
+        page = (
+            supabase.table("carbon_reference")
+            .select("product_name,category,reference_unit,avoided_co2e_kg_per_item")
+            .order("product_name")
+            .range(start, start + 499)
+            .execute()
+        ).data or []
+        rows.extend(page)
+        if len(page) < 500:
+            break
+        start += 500
+    return rows
+
+
+def carbon_choices():
+    """Only per-item references are directly usable as per-item values.
+
+    Values per kg cannot be assigned to one retail package without its mass.
+    """
+    try:
+        all_rows = load_carbon_catalogue()
+    except Exception as exc:
+        st.warning("Carbon catalogue unavailable: " + str(exc))
+        return []
+    return [r for r in all_rows
+            if str(r.get("reference_unit", "")).strip().lower()
+            in {"item", "device", "pair", "pack", "unit", "piece"}
+            and r.get("avoided_co2e_kg_per_item") is not None]
+
+
+def carbon_label(row):
+    if row is None:
+        return "No reference selected (CO2e unavailable)"
+    return (f"{row['product_name']} — "
+            f"{float(row['avoided_co2e_kg_per_item']):.3f} kg CO2e / "
+            f"{row['reference_unit']} (illustrative)")
+
+
+# =========================================================
 # HEADER
 # =========================================================
 
@@ -642,6 +690,20 @@ elif page == "Register Surplus":
             "Circular Quest Eligibility End Date"
         )
 
+        st.markdown("**Carbon reference (optional)**")
+        st.caption(
+            "Choose only a comparable product and package unit. "
+            "These are scenario estimates, not verified CO2 savings. "
+            "If there is no appropriate match, leave it blank."
+        )
+        manual_carbon_options = [None] + carbon_choices()
+        selected_carbon = st.selectbox(
+            "Carbon reference for this item",
+            manual_carbon_options,
+            format_func=carbon_label,
+            key="manual_carbon_reference"
+        )
+
         submitted = st.form_submit_button(
             "Check & Register Surplus",
             type="primary"
@@ -764,7 +826,12 @@ elif page == "Register Surplus":
                         eligible_until.isoformat(),
 
                     "status":
-                        batch_status
+                        batch_status,
+
+                    "co2e_per_unit": (
+                        float(selected_carbon["avoided_co2e_kg_per_item"])
+                        if selected_carbon is not None else None
+                    )
                 }
 
                 try:
@@ -1300,6 +1367,24 @@ elif page == "POS Upload":
                         hide_index=True
                     )
 
+                    st.markdown("**Optional carbon references for selected items**")
+                    st.caption(
+                        "Select a comparable per-item reference for each product. "
+                        "Leave unmatched products blank. Values are illustrative."
+                    )
+                    bulk_carbon_options = [None] + carbon_choices()
+                    for row in selected_rows:
+                        choice = st.selectbox(
+                            f"Reference for {row['product_name']} ({row['merchant_sku']})",
+                            bulk_carbon_options,
+                            format_func=carbon_label,
+                            key=f"carbon_bulk_{merchant_id}_{row['merchant_sku']}"
+                        )
+                        row["co2e_per_unit"] = (
+                            float(choice["avoided_co2e_kg_per_item"])
+                            if choice is not None else None
+                        )
+
                     # -------------------------------------
                     # REGISTER BUTTON
                     # -------------------------------------
@@ -1442,7 +1527,10 @@ elif page == "POS Upload":
                                     .isoformat(),
 
                                 "status":
-                                    status
+                                    status,
+
+                                "co2e_per_unit":
+                                    item.get("co2e_per_unit")
                             }
 
                             try:
@@ -1532,11 +1620,7 @@ elif page == "POS Upload":
                         )
 
             except Exception as e:
-
-                st.error(
-                    "The POS data could not be processed."
-                )
-
+                st.error("The POS file could not be processed.")
                 st.exception(e)
 
 # =========================================================
@@ -1614,7 +1698,10 @@ elif page == "Inventory":
                     item["status"],
 
                 "Eligible Until":
-                    item["eligible_until"]
+                    item["eligible_until"],
+
+                "Illustrative CO2e per unit (kg)":
+                    item.get("co2e_per_unit")
             })
 
         st.dataframe(
