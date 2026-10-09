@@ -823,16 +823,24 @@ elif page == "POS Upload":
     st.header("📤 POS / Inventory Upload")
 
     st.write(
-        "Upload a CSV exported from your existing POS or "
-        "inventory system. Circular Quest maps different "
-        "retailer formats into one standard data structure."
+        "Upload an inventory export from your existing POS or "
+        "inventory system. Circular Quest converts different "
+        "retailer formats into one standard structure."
     )
 
-    st.info(
-        "This prototype demonstrates interoperability. "
-        "Retailers do not need to replace their existing "
-        "POS systems."
+    # -----------------------------------------------------
+    # LOAD SAVED POS MAPPINGS
+    # -----------------------------------------------------
+
+    mapping_response = (
+        supabase
+        .table("pos_mappings")
+        .select("*")
+        .eq("merchant_id", merchant_id)
+        .execute()
     )
+
+    saved_mappings = mapping_response.data
 
     uploaded_file = st.file_uploader(
         "Upload POS inventory CSV",
@@ -847,23 +855,20 @@ elif page == "POS Upload":
 
         except Exception as e:
 
-            st.error(
-                "The CSV file could not be read."
-            )
-
+            st.error("Could not read CSV file.")
             st.exception(e)
-
             st.stop()
 
         if df.empty:
 
-            st.warning(
-                "The uploaded CSV contains no products."
-            )
-
+            st.warning("The uploaded file contains no products.")
             st.stop()
 
-        st.subheader("1. Detected POS Data")
+        # -------------------------------------------------
+        # STEP 1 — RAW DATA
+        # -------------------------------------------------
+
+        st.subheader("1. POS Data Detected")
 
         st.dataframe(
             df,
@@ -872,54 +877,196 @@ elif page == "POS Upload":
         )
 
         st.caption(
-            f"{len(df)} rows detected."
+            f"{len(df)} products detected."
         )
 
         st.divider()
 
-        st.subheader(
-            "2. Match POS Columns to Circular Quest"
+        # -------------------------------------------------
+        # STEP 2 — MAPPING METHOD
+        # -------------------------------------------------
+
+        st.subheader("2. Map POS Columns")
+
+        mapping_options = [
+            "Create New Mapping"
+        ]
+
+        for mapping in saved_mappings:
+
+            mapping_options.append(
+                mapping["mapping_name"]
+            )
+
+        selected_mapping_name = st.selectbox(
+            "POS Mapping",
+            mapping_options
         )
 
         columns = [
             "-- Select --"
         ] + list(df.columns)
 
-        col1, col2 = st.columns(2)
+        # -------------------------------------------------
+        # SAVED MAPPING
+        # -------------------------------------------------
 
-        with col1:
+        if selected_mapping_name != "Create New Mapping":
 
-            sku_column = st.selectbox(
-                "Product SKU",
-                columns,
-                key="sku_mapping"
+            selected_mapping = next(
+                mapping
+                for mapping in saved_mappings
+                if mapping["mapping_name"]
+                == selected_mapping_name
             )
 
-            name_column = st.selectbox(
-                "Product Name",
-                columns,
-                key="name_mapping"
+            sku_column = selected_mapping["sku_column"]
+            name_column = selected_mapping["name_column"]
+            quantity_column = selected_mapping["quantity_column"]
+            price_column = selected_mapping["price_column"]
+            expiry_column = selected_mapping["expiry_column"]
+
+            required_saved_columns = [
+                sku_column,
+                name_column,
+                quantity_column,
+                price_column,
+                expiry_column
+            ]
+
+            missing_columns = [
+                column
+                for column in required_saved_columns
+                if column not in df.columns
+            ]
+
+            if missing_columns:
+
+                st.error(
+                    "This CSV does not match the saved POS format. "
+                    "Missing columns: "
+                    + ", ".join(missing_columns)
+                )
+
+                st.stop()
+
+            st.success(
+                f"✓ Saved mapping '{selected_mapping_name}' applied."
             )
 
-            quantity_column = st.selectbox(
-                "Quantity Remaining",
-                columns,
-                key="quantity_mapping"
+            st.write({
+                "Product SKU": sku_column,
+                "Product Name": name_column,
+                "Quantity": quantity_column,
+                "Original Price": price_column,
+                "Expiry Date": expiry_column
+            })
+
+        # -------------------------------------------------
+        # NEW MAPPING
+        # -------------------------------------------------
+
+        else:
+
+            col1, col2 = st.columns(2)
+
+            with col1:
+
+                sku_column = st.selectbox(
+                    "Product SKU",
+                    columns,
+                    key="new_sku"
+                )
+
+                name_column = st.selectbox(
+                    "Product Name",
+                    columns,
+                    key="new_name"
+                )
+
+                quantity_column = st.selectbox(
+                    "Quantity Remaining",
+                    columns,
+                    key="new_quantity"
+                )
+
+            with col2:
+
+                price_column = st.selectbox(
+                    "Original Price",
+                    columns,
+                    key="new_price"
+                )
+
+                expiry_column = st.selectbox(
+                    "Expiry Date",
+                    columns,
+                    key="new_expiry"
+                )
+
+            mapping_name = st.text_input(
+                "Save this format as",
+                placeholder="e.g. FreshBasket POS"
             )
 
-        with col2:
+            if st.button("Save POS Mapping"):
 
-            price_column = st.selectbox(
-                "Original Price",
-                columns,
-                key="price_mapping"
-            )
+                required = [
+                    sku_column,
+                    name_column,
+                    quantity_column,
+                    price_column,
+                    expiry_column
+                ]
 
-            expiry_column = st.selectbox(
-                "Expiry Date",
-                columns,
-                key="expiry_mapping"
-            )
+                if "-- Select --" in required:
+
+                    st.error(
+                        "Please map all required columns first."
+                    )
+
+                elif not mapping_name.strip():
+
+                    st.error(
+                        "Please enter a name for this POS mapping."
+                    )
+
+                else:
+
+                    new_mapping = {
+                        "merchant_id": merchant_id,
+                        "mapping_name": mapping_name.strip(),
+                        "sku_column": sku_column,
+                        "name_column": name_column,
+                        "quantity_column": quantity_column,
+                        "price_column": price_column,
+                        "expiry_column": expiry_column
+                    }
+
+                    try:
+
+                        supabase.table(
+                            "pos_mappings"
+                        ).insert(
+                            new_mapping
+                        ).execute()
+
+                        st.success(
+                            "✓ POS mapping saved. "
+                            "It can be reused for future uploads."
+                        )
+
+                    except Exception as e:
+
+                        st.error(
+                            "Could not save POS mapping."
+                        )
+
+                        st.exception(e)
+
+        # -------------------------------------------------
+        # STEP 3 — STANDARDISE
+        # -------------------------------------------------
 
         required_mappings = [
             sku_column,
@@ -936,10 +1083,10 @@ elif page == "POS Upload":
                 standardized_df = pd.DataFrame({
 
                     "merchant_sku":
-                        df[sku_column],
+                        df[sku_column].astype(str),
 
                     "product_name":
-                        df[name_column],
+                        df[name_column].astype(str),
 
                     "quantity":
                         pd.to_numeric(
@@ -960,6 +1107,15 @@ elif page == "POS Upload":
                         )
                 })
 
+                standardized_df = (
+                    standardized_df.dropna()
+                )
+
+                standardized_df["quantity"] = (
+                    standardized_df["quantity"]
+                    .astype(int)
+                )
+
                 st.divider()
 
                 st.subheader(
@@ -967,8 +1123,7 @@ elif page == "POS Upload":
                 )
 
                 st.success(
-                    "✅ POS columns successfully mapped "
-                    "to the Circular Quest standard."
+                    "✓ POS data successfully standardised."
                 )
 
                 st.dataframe(
@@ -977,44 +1132,404 @@ elif page == "POS Upload":
                     hide_index=True
                 )
 
-                invalid_rows = (
-                    standardized_df[
-                        standardized_df.isnull().any(axis=1)
-                    ]
+                # -----------------------------------------
+                # STEP 4 — SELECT SURPLUS PRODUCTS
+                # -----------------------------------------
+
+                st.divider()
+
+                st.subheader(
+                    "4. Select Genuine Surplus"
                 )
 
-                if not invalid_rows.empty:
+                st.write(
+                    "A normal POS export may contain many products. "
+                    "Select only products that are genuinely being "
+                    "declared as surplus."
+                )
 
-                    st.warning(
-                        f"{len(invalid_rows)} row(s) contain "
-                        "invalid or missing values and would "
-                        "require review before import."
+                product_options = []
+
+                for index, row in standardized_df.iterrows():
+
+                    label = (
+                        f"{row['merchant_sku']} — "
+                        f"{row['product_name']} "
+                        f"({row['quantity']} available)"
                     )
 
-                st.info(
-                    "Next stage: the merchant will select "
-                    "which of these products are genuinely "
-                    "surplus, provide the surplus reason and "
-                    "discounted price, and Circular Quest "
-                    "will run eligibility and accountability "
-                    "checks before publishing them."
+                    product_options.append(label)
+
+                selected_products = st.multiselect(
+                    "Products to declare as surplus",
+                    product_options
                 )
 
-            except Exception as e:
+                if selected_products:
 
-                st.error(
-                    "The selected columns could not be "
-                    "converted."
-                )
+                    st.divider()
 
-                st.exception(e)
+                    st.subheader(
+                        "5. Surplus Details"
+                    )
 
-        else:
+                    surplus_reason = st.selectbox(
+                        "Surplus Reason",
+                        [
+                            "Near Expiry",
+                            "Seasonal Surplus",
+                            "Discontinued",
+                            "Cosmetic Damage",
+                            "Forecasting Error",
+                            "Other"
+                        ],
+                        key="bulk_reason"
+                    )
 
-            st.info(
-                "Match all five required fields to continue."
-            )
+                    discount_percentage = st.slider(
+                        "Surplus Discount",
+                        min_value=10,
+                        max_value=90,
+                        value=40,
+                        step=5
+                    )
 
+                    eligible_until = st.date_input(
+                        "Circular Quest Eligibility End Date",
+                        key="bulk_eligible_until"
+                    )
+
+                    # Load merchant outlets
+
+                    outlets = load_outlets(
+                        merchant_id
+                    )
+
+                    outlet_names = [
+                        outlet["outlet_name"]
+                        for outlet in outlets
+                    ]
+
+                    selected_outlet_name = st.selectbox(
+                        "Outlet",
+                        outlet_names,
+                        key="bulk_outlet"
+                    )
+
+                    selected_outlet = next(
+                        outlet
+                        for outlet in outlets
+                        if outlet["outlet_name"]
+                        == selected_outlet_name
+                    )
+
+                    outlet_id = selected_outlet["id"]
+
+                    # -------------------------------------
+                    # PREVIEW
+                    # -------------------------------------
+
+                    selected_rows = []
+
+                    for selected_product in selected_products:
+
+                        sku = selected_product.split(
+                            " — "
+                        )[0]
+
+                        matching_row = (
+                            standardized_df[
+                                standardized_df[
+                                    "merchant_sku"
+                                ] == sku
+                            ]
+                        )
+
+                        if not matching_row.empty:
+
+                            row = matching_row.iloc[0]
+
+                            surplus_price = (
+                                row["original_price"]
+                                * (
+                                    1
+                                    - discount_percentage
+                                    / 100
+                                )
+                            )
+
+                            selected_rows.append({
+
+                                "merchant_sku":
+                                    row["merchant_sku"],
+
+                                "product_name":
+                                    row["product_name"],
+
+                                "quantity":
+                                    int(row["quantity"]),
+
+                                "original_price":
+                                    float(
+                                        row["original_price"]
+                                    ),
+
+                                "surplus_price":
+                                    round(
+                                        float(
+                                            surplus_price
+                                        ),
+                                        2
+                                    ),
+
+                                "expiry_date":
+                                    row["expiry_date"]
+                            })
+
+                    preview_df = pd.DataFrame(
+                        selected_rows
+                    )
+
+                    st.write(
+                        "**Import Preview**"
+                    )
+
+                    st.dataframe(
+                        preview_df,
+                        use_container_width=True,
+                        hide_index=True
+                    )
+
+                    # -------------------------------------
+                    # REGISTER BUTTON
+                    # -------------------------------------
+
+                    if st.button(
+                        "Validate & Register Selected Surplus",
+                        type="primary"
+                    ):
+
+                        (
+                            cap,
+                            already_eligible,
+                            remaining_allowance
+                        ) = get_remaining_allowance(
+                            merchant_id
+                        )
+
+                        successful = 0
+                        rejected = 0
+                        partial = 0
+
+                        results = []
+
+                        for item in selected_rows:
+
+                            item_expiry = (
+                                item["expiry_date"]
+                                .date()
+                            )
+
+                            eligible, message = (
+                                check_surplus_eligibility(
+                                    surplus_reason,
+                                    item_expiry,
+                                    eligible_until
+                                )
+                            )
+
+                            if not eligible:
+
+                                rejected += 1
+
+                                results.append({
+
+                                    "Product":
+                                        item[
+                                            "product_name"
+                                        ],
+
+                                    "Result":
+                                        "Rejected",
+
+                                    "Details":
+                                        message
+                                })
+
+                                continue
+
+                            requested_quantity = (
+                                item["quantity"]
+                            )
+
+                            eligible_quantity = min(
+                                requested_quantity,
+                                remaining_allowance
+                            )
+
+                            if eligible_quantity == 0:
+
+                                status = "ineligible"
+
+                                rejected += 1
+
+                            elif (
+                                eligible_quantity
+                                < requested_quantity
+                            ):
+
+                                status = (
+                                    "partially_eligible"
+                                )
+
+                                partial += 1
+
+                            else:
+
+                                status = "active"
+
+                                successful += 1
+
+                            new_batch = {
+
+                                "merchant_id":
+                                    merchant_id,
+
+                                "outlet_id":
+                                    outlet_id,
+
+                                "merchant_sku":
+                                    item[
+                                        "merchant_sku"
+                                    ],
+
+                                "product_name":
+                                    item[
+                                        "product_name"
+                                    ],
+
+                                "category":
+                                    "Food",
+
+                                "quantity_registered":
+                                    requested_quantity,
+
+                                "quantity_remaining":
+                                    eligible_quantity,
+
+                                "quantity_eligible":
+                                    eligible_quantity,
+
+                                "original_price":
+                                    item[
+                                        "original_price"
+                                    ],
+
+                                "surplus_price":
+                                    item[
+                                        "surplus_price"
+                                    ],
+
+                                "surplus_reason":
+                                    surplus_reason,
+
+                                "expiry_date":
+                                    item_expiry
+                                    .isoformat(),
+
+                                "eligible_until":
+                                    eligible_until
+                                    .isoformat(),
+
+                                "status":
+                                    status
+                            }
+
+                            try:
+
+                                supabase.table(
+                                    "surplus_batches"
+                                ).insert(
+                                    new_batch
+                                ).execute()
+
+                                remaining_allowance -= (
+                                    eligible_quantity
+                                )
+
+                                if status == "active":
+
+                                    result_text = (
+                                        f"{eligible_quantity} "
+                                        "units approved"
+                                    )
+
+                                elif (
+                                    status
+                                    == "partially_eligible"
+                                ):
+
+                                    result_text = (
+                                        f"{eligible_quantity} "
+                                        f"of "
+                                        f"{requested_quantity} "
+                                        "units approved"
+                                    )
+
+                                else:
+
+                                    result_text = (
+                                        "Recorded but "
+                                        "not eligible"
+                                    )
+
+                                results.append({
+
+                                    "Product":
+                                        item[
+                                            "product_name"
+                                        ],
+
+                                    "Result":
+                                        status,
+
+                                    "Details":
+                                        result_text
+                                })
+
+                            except Exception as e:
+
+                                rejected += 1
+
+                                results.append({
+
+                                    "Product":
+                                        item[
+                                            "product_name"
+                                        ],
+
+                                    "Result":
+                                        "Database Error",
+
+                                    "Details":
+                                        str(e)
+                                })
+
+                        st.divider()
+
+                        st.subheader(
+                            "Import Results"
+                        )
+
+                        st.dataframe(
+                            pd.DataFrame(results),
+                            use_container_width=True,
+                            hide_index=True
+                        )
+
+                        st.success(
+                            "POS surplus processing complete."
+                        )
 
 # =========================================================
 # INVENTORY
