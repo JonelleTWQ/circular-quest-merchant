@@ -150,3 +150,106 @@ if active_inventory:
 
 else:
     st.info("No active surplus inventory.")
+
+# -----------------------------
+# ACCOUNTABILITY
+# -----------------------------
+
+st.divider()
+st.header("🛡️ Surplus Accountability")
+
+stats_response = (
+    supabase
+    .table("merchant_monthly_stats")
+    .select("*")
+    .eq("merchant_id", merchant_id)
+    .order("month")
+    .execute()
+)
+
+stats = stats_response.data
+
+if stats:
+
+    latest = stats[-1]
+
+    previous = stats[:-1]
+
+    if previous:
+
+        historical_rates = [
+            row["units_surplus"] / row["units_procured"]
+            for row in previous
+            if row["units_procured"] > 0
+        ]
+
+        baseline_rate = (
+            sum(historical_rates) / len(historical_rates)
+        )
+
+    else:
+        baseline_rate = 0
+
+    current_rate = (
+        latest["units_surplus"] / latest["units_procured"]
+        if latest["units_procured"] > 0
+        else 0
+    )
+
+    excess_units = max(
+        0,
+        latest["units_surplus"]
+        - latest["eligible_surplus_cap"]
+    )
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric(
+            "Historical Baseline",
+            f"{baseline_rate * 100:.1f}%"
+        )
+
+    with col2:
+        st.metric(
+            "Current Surplus Rate",
+            f"{current_rate * 100:.1f}%"
+        )
+
+    with col3:
+        st.metric(
+            "Eligible Surplus Cap",
+            f"{latest['eligible_surplus_cap']} units"
+        )
+
+    if current_rate <= baseline_rate * 1.10:
+
+        st.success(
+            "🟢 GREEN — Surplus levels are within the expected range."
+        )
+
+    elif current_rate <= baseline_rate * 1.50:
+
+        st.warning(
+            "🟠 AMBER — Surplus has increased above the historical baseline."
+        )
+
+    else:
+
+        st.error(
+            "🔴 RED — Significant surplus anomaly detected."
+        )
+
+    if excess_units > 0:
+
+        st.warning(
+            f"{excess_units} surplus units exceed the current "
+            "Circular Quest eligibility allowance and will not "
+            "receive Circular Quest incentives."
+        )
+
+else:
+
+    st.info(
+        "No historical accountability data is available for this merchant."
+    )
