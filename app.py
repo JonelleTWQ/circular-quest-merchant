@@ -70,6 +70,17 @@ st.success(f"Logged in as {selected_name}")
 
 st.divider()
 
+page = st.sidebar.radio(
+    "Navigation",
+    [
+        "Dashboard",
+        "Register Surplus",
+        "POS Upload",
+        "Inventory",
+        "Accountability"
+    ]
+)
+
 # -----------------------------
 # LOAD SURPLUS INVENTORY
 # -----------------------------
