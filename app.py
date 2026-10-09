@@ -347,7 +347,8 @@ page = st.sidebar.radio(
         "Register Surplus",
         "POS Upload",
         "Inventory",
-        "Accountability"
+        "Accountability",
+        "ESG Insights"
     ]
 )
 
@@ -690,6 +691,12 @@ elif page == "Register Surplus":
             "Circular Quest Eligibility End Date"
         )
 
+        st.markdown("**ESG evidence (optional, for reporting)**")
+        unit_weight_kg = st.number_input("Weight per item (kg)", min_value=0.0, value=0.0, step=0.05, format="%.3f", help="Enter 0 if unknown.")
+        product_condition = st.selectbox("Product condition", ["New", "Near expiry", "Refurbished", "Cosmetic damage", "Other"])
+        expected_unsold_fate = st.selectbox("Expected fate if unsold", ["Unknown", "Disposed", "Donated", "Stored", "Returned to supplier"])
+        disposal_probability = st.number_input("Estimated disposal probability (0–1)", min_value=0.0, max_value=1.0, value=0.0, step=0.05, help="Use documented historical rates if available. 0 means unknown/not evidenced, not that waste risk is zero.")
+
         st.markdown("**Carbon reference (optional)**")
         st.caption(
             "Choose only a comparable product and package unit. "
@@ -831,7 +838,11 @@ elif page == "Register Surplus":
                     "co2e_per_unit": (
                         float(selected_carbon["avoided_co2e_kg_per_item"])
                         if selected_carbon is not None else None
-                    )
+                    ),
+                    "unit_weight_kg": float(unit_weight_kg) if unit_weight_kg > 0 else None,
+                    "product_condition": product_condition,
+                    "expected_unsold_fate": expected_unsold_fate,
+                    "disposal_probability": float(disposal_probability) if expected_unsold_fate == "Disposed" else None
                 }
 
                 try:
@@ -1367,6 +1378,13 @@ elif page == "POS Upload":
                         hide_index=True
                     )
 
+                    st.markdown("**ESG assumptions for this uploaded selection**")
+                    bulk_weight = st.number_input("Weight per item (kg), all selected products", min_value=0.0, value=0.0, step=0.05, format="%.3f", key="bulk_weight")
+                    bulk_condition = st.selectbox("Condition", ["New", "Near expiry", "Refurbished", "Cosmetic damage", "Other"], key="bulk_condition")
+                    bulk_fate = st.selectbox("Expected fate if unsold", ["Unknown", "Disposed", "Donated", "Stored", "Returned to supplier"], key="bulk_fate")
+                    bulk_probability = st.number_input("Disposal probability (0–1)", min_value=0.0, max_value=1.0, value=0.0, step=0.05, key="bulk_probability")
+                    st.caption("For differing products, register separately to use individual weights and assumptions.")
+
                     st.markdown("**Optional carbon references for selected items**")
                     st.caption(
                         "Select a comparable per-item reference for each product. "
@@ -1530,7 +1548,11 @@ elif page == "POS Upload":
                                     status,
 
                                 "co2e_per_unit":
-                                    item.get("co2e_per_unit")
+                                    item.get("co2e_per_unit"),
+                                "unit_weight_kg": float(bulk_weight) if bulk_weight > 0 else None,
+                                "product_condition": bulk_condition,
+                                "expected_unsold_fate": bulk_fate,
+                                "disposal_probability": float(bulk_probability) if bulk_fate == "Disposed" else None
                             }
 
                             try:
@@ -1954,3 +1976,80 @@ elif page == "Accountability":
             "No historical accountability data is "
             "available for this merchant."
         )
+
+# =========================================================
+# ESG INSIGHTS — GRI 306-INFORMED, NOT CERTIFIED DISCLOSURE
+# =========================================================
+
+elif page == "ESG Insights":
+    st.header("🌱 ESG Insights")
+    st.caption("GRI 306-informed prototype. Completed sales are distinguished from estimated waste prevention and scenario-based CO₂e. Not a certified ESG report.")
+
+    try:
+        batches = load_inventory(merchant_id)
+        sales = (supabase.table("surplus_sales").select("*")
+                 .eq("merchant_id", merchant_id).order("sold_at", desc=True).execute().data)
+    except Exception as e:
+        st.error("Could not load ESG records. Run the supplied ESG SQL migration first.")
+        st.exception(e)
+        st.stop()
+
+    by_id = {int(b["id"]): b for b in batches}
+    st.subheader("Record a completed surplus sale (demo)")
+    st.info("Record a sale only when it actually occurred. This demo is not connected to a live POS. Refunds must be recorded separately; do not record the same transaction twice.")
+    options = [b for b in batches if b.get("status") in ("active", "partially_eligible") and int(b.get("quantity_remaining") or 0) > 0 and str(b.get("eligible_until") or "") >= date.today().isoformat()]
+    if options:
+        with st.form("sale_form"):
+            chosen = st.selectbox("Eligible batch", options, format_func=lambda b: f"#{b['id']} — {b['product_name']} ({b['quantity_remaining']} available)")
+            units = st.number_input("Units actually sold", min_value=1, max_value=int(chosen["quantity_remaining"]), value=1, step=1)
+            receipt_ref = st.text_input("Receipt / transaction ID (unique for this merchant)")
+            sale_confirm = st.form_submit_button("Record completed sale", type="primary")
+        if sale_confirm:
+            if not receipt_ref.strip():
+                st.error("Enter a receipt/transaction ID.")
+            else:
+                try:
+                    # Database function updates stock and creates the sale in one transaction.
+                    supabase.rpc("record_surplus_sale", {
+                        "p_merchant_id": int(merchant_id),
+                        "p_batch_id": int(chosen["id"]),
+                        "p_quantity": int(units),
+                        "p_receipt_ref": receipt_ref.strip()
+                    }).execute()
+                    st.success("Sale recorded and inventory updated. Refresh to view ESG totals.")
+                    st.rerun()
+                except Exception as e:
+                    st.error("Sale was not recorded. Check that the transaction ID is new and the stock is available.")
+                    st.exception(e)
+    else:
+        st.info("No eligible, unexpired inventory with stock available for a new sale.")
+
+    st.divider()
+    st.subheader("Measured activity vs estimated impact")
+    valid_sales = [r for r in sales if not r.get("refunded", False)]
+    total_units = sum(int(r["quantity"]) for r in valid_sales)
+    total_revenue = sum(float(r["quantity"]) * float(r["unit_sale_price"]) for r in valid_sales)
+    total_discount = sum(float(r["quantity"]) * max(0, float(r["unit_original_price"]) - float(r["unit_sale_price"])) for r in valid_sales)
+    mass_known = sum(float(r["quantity"]) * float(r["unit_weight_kg"]) for r in valid_sales if r.get("unit_weight_kg") is not None)
+    mass_missing = sum(int(r["quantity"]) for r in valid_sales if r.get("unit_weight_kg") is None)
+    potential_mass = sum(float(r["quantity"]) * float(r["unit_weight_kg"]) * float(r["disposal_probability"]) for r in valid_sales if r.get("unit_weight_kg") is not None and r.get("disposal_probability") is not None and r.get("expected_unsold_fate") == "Disposed")
+    co2_scenario = sum(float(r["quantity"]) * float(r["co2e_per_unit"]) for r in valid_sales if r.get("co2e_per_unit") is not None)
+    co2_missing = sum(int(r["quantity"]) for r in valid_sales if r.get("co2e_per_unit") is None)
+    cols = st.columns(3)
+    cols[0].metric("Confirmed units sold", f"{total_units:,}")
+    cols[1].metric("Revenue recovered", f"S${total_revenue:,.2f}")
+    cols[2].metric("Customer discount value", f"S${total_discount:,.2f}")
+    cols = st.columns(3)
+    cols[0].metric("Known redistributed mass", f"{mass_known:,.2f} kg")
+    cols[1].metric("Potential waste avoided (scenario)", f"{potential_mass:,.2f} kg")
+    cols[2].metric("Illustrative avoided CO₂e", f"{co2_scenario:,.2f} kg")
+    if mass_missing or co2_missing:
+        st.warning(f"Incomplete coverage: {mass_missing} sold units lack weight; {co2_missing} lack carbon factors. Totals exclude unknown values.")
+    st.caption("Potential waste avoided = Σ(sold units × item mass × assumed probability of disposal), only when expected fate is 'Disposed'. CO₂e = Σ(sold units × scenario avoided-CO₂e per unit). These are not verified GHG inventory reductions or automatically GRI 306-4 waste diversion.")
+
+    st.subheader("Sales ledger")
+    if sales:
+        st.dataframe(pd.DataFrame(sales), hide_index=True, use_container_width=True)
+        st.download_button("Download sales records (CSV)", pd.DataFrame(sales).to_csv(index=False), "circular_quest_esg_sales.csv", "text/csv")
+    else:
+        st.info("No sales recorded yet. Registering inventory alone does not count as a sale or waste prevented.")
