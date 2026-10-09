@@ -1,0 +1,3 @@
+id,merchant_id,mapping_name,sku_column,name_column,quantity_column,price_column,expiry_column,created_at
+4,2,FreshBasket POS,SKU,ItemName,QtyLeft,RetailPrice,ExpiryDate,2026-10-09 07:58:07.615679+00
+5,2,Retailer B POS,product_code,description,remaining_stock,standard_price,use_by,2026-10-09 08:01:23.672324+00

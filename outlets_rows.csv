@@ -1,0 +1,5 @@
+id,merchant_id,outlet_name,address,active,created_at
+1,1,GreenMart Clementi,"3155 Commonwealth Avenue West, Singapore",true,2026-10-09 05:57:48.501508+00
+2,1,GreenMart Jurong,"3 Gateway Drive, Singapore",true,2026-10-09 05:58:08.378213+00
+3,2,FreshBasket Orchard,"290 Orchard Road, Singapore",true,2026-10-09 05:58:24.348093+00
+4,3,EcoGrocer Tampines,"4 Tampines Central 5, Singapore",true,2026-10-09 05:58:38.202799+00

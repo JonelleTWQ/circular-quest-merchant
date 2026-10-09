@@ -1,0 +1,2 @@
+id,claim_code,merchant_id,outlet_id,surplus_batch_id,quantity,co2e_saved,points_awarded,redeemed,created_at,redeemed_at
+1,CQ-TEST001,1,1,1,2,1.00,100,false,2026-10-09 06:22:28.386036+00,

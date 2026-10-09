@@ -1,0 +1,553 @@
+id,product_name,category,reference_unit,product_footprint_kg_co2e,assumed_displacement_factor,avoided_co2e_kg_per_item,estimate_type,evidence_quality
+1,Beef (beef herd),Food,kg product,99.48,0.2,19.896,published global category average,Published category average
+2,Beef (dairy herd),Food,kg product,33.3,0.2,6.66,published global category average,Published category average
+3,Lamb and mutton,Food,kg product,39.72,0.2,7.944,published global category average,Published category average
+4,Farmed prawns,Food,kg product,26.87,0.2,5.374,published global category average,Published category average
+5,Cheese,Food,kg product,23.88,0.2,4.776,published global category average,Published category average
+6,Pork,Food,kg product,12.31,0.2,2.462,published global category average,Published category average
+7,Poultry,Food,kg product,9.87,0.2,1.974,published global category average,Published category average
+8,Eggs,Food,kg product,4.67,0.2,0.934,published global category average,Published category average
+9,Rice,Food,kg product,4.45,0.2,0.89,published global category average,Published category average
+10,Milk,Food,kg product,3.15,0.2,0.63,published global category average,Published category average
+11,Tomatoes,Food,kg product,2.09,0.2,0.418,published global category average,Published category average
+12,Maize,Food,kg product,1.7,0.2,0.34,published global category average,Published category average
+13,Wheat and rye,Food,kg product,1.57,0.2,0.314,published global category average,Published category average
+14,Peas,Food,kg product,0.98,0.2,0.196,published global category average,Published category average
+15,Bananas,Food,kg product,0.86,0.2,0.172,published global category average,Published category average
+16,Potatoes,Food,kg product,0.46,0.2,0.092,published global category average,Published category average
+17,Nuts,Food,kg product,0.43,0.2,0.086,published global category average,Published category average
+18,Apples,Food,kg product,0.43,0.2,0.086,published global category average,Published category average
+19,Avocados,Food,kg product,0.92,0.2,0.184,published global category average,Published category average
+20,Asparagus,Food,kg product,0.93,0.2,0.186,published global category average,Published category average
+21,Barley,Food,kg product,1.18,0.2,0.236,published global category average,Published category average
+22,Beans,Food,kg product,1.37,0.2,0.274,published global category average,Published category average
+23,Bacon,Food,kg product,19.31,0.2,3.862,published global category average,Published category average
+24,Salmon,Food,kg product,10.41,0.2,2.082,published global category average,Published category average
+25,Peppers,Food,kg product,0.92,0.2,0.184,published global category average,Published category average
+26,Rapeseed oil,Food,kg product,3.29,0.2,0.658,published global category average,Published category average
+27,Root vegetables,Food,kg product,0.43,0.2,0.086,published global category average,Published category average
+28,Pineapple,Food,kg product,0.93,0.2,0.186,published global category average,Published category average
+29,Soy milk,Food,kg product,0.98,0.2,0.196,published global category average,Published category average
+30,Rice milk,Food,kg product,1.44,0.2,0.288,published global category average,Published category average
+31,Almond milk,Food,kg product,0.66,0.2,0.132,published global category average,Published category average
+32,Beef steak 250g,Food,item,24.87,0.2,4.974,illustrative weight-based proxy,Low: simplified product proxy
+33,Ground beef 500g,Food,item,49.74,0.2,9.948,illustrative weight-based proxy,Low: simplified product proxy
+34,Lamb 500g,Food,item,19.86,0.2,3.972,illustrative weight-based proxy,Low: simplified product proxy
+35,Pork chops 500g,Food,item,6.155,0.2,1.231,illustrative weight-based proxy,Low: simplified product proxy
+36,Chicken breast 500g,Food,item,4.935,0.2,0.987,illustrative weight-based proxy,Low: simplified product proxy
+37,Chicken whole 1.2kg,Food,item,11.844,0.2,2.3688,illustrative weight-based proxy,Low: simplified product proxy
+38,Farmed prawns 300g,Food,item,8.061,0.2,1.6122,illustrative weight-based proxy,Low: simplified product proxy
+39,Salmon fillet 200g,Food,item,2.082,0.2,0.4164,illustrative weight-based proxy,Low: simplified product proxy
+40,Cheese block 200g,Food,item,4.776,0.2,0.9552,illustrative weight-based proxy,Low: simplified product proxy
+41,Cheese slices 150g,Food,item,3.582,0.2,0.7164,illustrative weight-based proxy,Low: simplified product proxy
+42,Milk carton 1L (~1kg),Food,item,3.15,0.2,0.63,illustrative weight-based proxy,Low: simplified product proxy
+43,Milk carton 500mL (~0.5kg),Food,item,1.575,0.2,0.315,illustrative weight-based proxy,Low: simplified product proxy
+44,Eggs 10 pack (~0.6kg),Food,item,2.802,0.2,0.5604,illustrative weight-based proxy,Low: simplified product proxy
+45,Eggs 6 pack (~0.36kg),Food,item,1.6812,0.2,0.3362,illustrative weight-based proxy,Low: simplified product proxy
+46,Rice bag 1kg,Food,item,4.45,0.2,0.89,illustrative weight-based proxy,Low: simplified product proxy
+47,Rice bag 5kg,Food,item,22.25,0.2,4.45,illustrative weight-based proxy,Low: simplified product proxy
+48,Wheat flour 1kg,Food,item,1.57,0.2,0.314,illustrative weight-based proxy,Low: simplified product proxy
+49,Bread loaf 500g (wheat proxy),Food,item,0.785,0.2,0.157,illustrative weight-based proxy,Low: simplified product proxy
+50,Buns 300g (wheat proxy),Food,item,0.471,0.2,0.0942,illustrative weight-based proxy,Low: simplified product proxy
+51,Pasta 500g (wheat proxy),Food,item,0.785,0.2,0.157,illustrative weight-based proxy,Low: simplified product proxy
+52,Corn 500g,Food,item,0.85,0.2,0.17,illustrative weight-based proxy,Low: simplified product proxy
+53,Potato bag 1kg,Food,item,0.46,0.2,0.092,illustrative weight-based proxy,Low: simplified product proxy
+54,Tomatoes 500g,Food,item,1.045,0.2,0.209,illustrative weight-based proxy,Low: simplified product proxy
+55,Tomatoes 1kg,Food,item,2.09,0.2,0.418,illustrative weight-based proxy,Low: simplified product proxy
+56,Bananas 1kg,Food,item,0.86,0.2,0.172,illustrative weight-based proxy,Low: simplified product proxy
+57,Banana pack 500g,Food,item,0.43,0.2,0.086,illustrative weight-based proxy,Low: simplified product proxy
+58,Apples 1kg,Food,item,0.43,0.2,0.086,illustrative weight-based proxy,Low: simplified product proxy
+59,Apple pack 750g,Food,item,0.3225,0.2,0.0645,illustrative weight-based proxy,Low: simplified product proxy
+60,Avocados 2 pack (~400g),Food,item,0.368,0.2,0.0736,illustrative weight-based proxy,Low: simplified product proxy
+61,Peppers 500g,Food,item,0.46,0.2,0.092,illustrative weight-based proxy,Low: simplified product proxy
+62,Peas 500g,Food,item,0.49,0.2,0.098,illustrative weight-based proxy,Low: simplified product proxy
+63,Beans 500g,Food,item,0.685,0.2,0.137,illustrative weight-based proxy,Low: simplified product proxy
+64,Mixed nuts 200g,Food,item,0.086,0.2,0.0172,illustrative weight-based proxy,Low: simplified product proxy
+65,Almond milk 1L (~1kg),Food,item,0.66,0.2,0.132,illustrative weight-based proxy,Low: simplified product proxy
+66,Soy milk 1L (~1kg),Food,item,0.98,0.2,0.196,illustrative weight-based proxy,Low: simplified product proxy
+67,Rice milk 1L (~1kg),Food,item,1.44,0.2,0.288,illustrative weight-based proxy,Low: simplified product proxy
+68,Pineapple 1kg,Food,item,0.93,0.2,0.186,illustrative weight-based proxy,Low: simplified product proxy
+69,Carrots 1kg (root vegetable proxy),Food,item,0.43,0.2,0.086,illustrative weight-based proxy,Low: simplified product proxy
+70,Rapeseed oil 1L (~0.92kg),Food,item,3.0268,0.2,0.6054,illustrative weight-based proxy,Low: simplified product proxy
+71,Bacon pack 200g,Food,item,3.862,0.2,0.7724,illustrative weight-based proxy,Low: simplified product proxy
+72,Yogurt 200g (milk proxy),Food,item,0.63,0.2,0.126,illustrative weight-based proxy,Low: simplified product proxy
+73,Yogurt 500g (milk proxy),Food,item,1.575,0.2,0.315,illustrative weight-based proxy,Low: simplified product proxy
+74,Butter 250g,Food,item,0.7875,0.2,0.1575,illustrative weight-based proxy,Low: simplified product proxy
+75,Cotton T-shirt,Fashion,item,6.43,0.1,0.643,published item lifecycle footprint,Published item model
+76,Cotton shirt,Fashion,item,13.2,0.1,1.32,published item lifecycle footprint,Published item model
+77,Jeans,Fashion,item,25.1,0.1,2.51,published item lifecycle footprint,Published item model
+78,Wool sweater,Fashion,item,56.7,0.1,5.67,published item lifecycle footprint,Published item model
+79,Coat,Fashion,item,101.0,0.1,10.1,published item lifecycle footprint,Published item model
+80,Fabric shoes pair,Fashion,item,18.5,0.1,1.85,published item lifecycle footprint,Published item model
+81,Leather shoes pair,Fashion,item,15.0,0.1,1.5,published item lifecycle footprint,Published item model
+82,Polyester dress,Fashion,item,58.3,0.1,5.83,published item lifecycle footprint,Published item model
+83,Cotton dress,Fashion,item,56.9,0.1,5.69,published item lifecycle footprint,Published item model
+84,Viscose dress,Fashion,item,52.5,0.1,5.25,published item lifecycle footprint,Published item model
+85,Smartphone (general),Electronics & appliances,item,58.0,0.1,5.8,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+86,Budget smartphone,Electronics & appliances,item,48.0,0.1,4.8,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+87,Premium smartphone,Electronics & appliances,item,75.0,0.1,7.5,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+88,Tablet (general),Electronics & appliances,item,72.0,0.1,7.2,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+89,Smartwatch,Electronics & appliances,item,9.0,0.1,0.9,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+90,Fitness tracker,Electronics & appliances,item,9.0,0.1,0.9,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+91,Laptop (general),Electronics & appliances,item,350.0,0.1,35.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+92,Business laptop,Electronics & appliances,item,391.0,0.1,39.1,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+93,Ultrabook,Electronics & appliances,item,313.0,0.1,31.3,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+94,Desktop computer,Electronics & appliances,item,420.0,0.1,42.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+95,Computer monitor 24 inch,Electronics & appliances,item,200.0,0.1,20.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+96,Computer monitor 27 inch,Electronics & appliances,item,260.0,0.1,26.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+97,Television 32 inch,Electronics & appliances,item,240.0,0.1,24.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+98,Television 43 inch,Electronics & appliances,item,330.0,0.1,33.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+99,Television 55 inch,Electronics & appliances,item,450.0,0.1,45.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+100,Bluetooth headphones,Electronics & appliances,item,22.0,0.1,2.2,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+101,Wireless earbuds,Electronics & appliances,item,12.0,0.1,1.2,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+102,Portable speaker,Electronics & appliances,item,28.0,0.1,2.8,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+103,Gaming console,Electronics & appliances,item,180.0,0.1,18.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+104,Wireless router,Electronics & appliances,item,35.0,0.1,3.5,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+105,Keyboard,Electronics & appliances,item,12.0,0.1,1.2,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+106,Computer mouse,Electronics & appliances,item,7.0,0.1,0.7,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+107,Power bank,Electronics & appliances,item,15.0,0.1,1.5,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+108,Phone charger,Electronics & appliances,item,5.0,0.1,0.5,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+109,USB cable,Electronics & appliances,item,2.0,0.1,0.2,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+110,External SSD,Electronics & appliances,item,22.0,0.1,2.2,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+111,Printer,Electronics & appliances,item,190.0,0.1,19.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+112,Digital camera,Electronics & appliances,item,120.0,0.1,12.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+113,Microwave oven,Electronics & appliances,item,160.0,0.1,16.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+114,Electric kettle,Electronics & appliances,item,45.0,0.1,4.5,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+115,Toaster,Electronics & appliances,item,55.0,0.1,5.5,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+116,Rice cooker,Electronics & appliances,item,90.0,0.1,9.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+117,Air fryer,Electronics & appliances,item,130.0,0.1,13.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+118,Blender,Electronics & appliances,item,65.0,0.1,6.5,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+119,Coffee machine,Electronics & appliances,item,145.0,0.1,14.5,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+120,Vacuum cleaner,Electronics & appliances,item,180.0,0.1,18.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+121,Electric fan,Electronics & appliances,item,70.0,0.1,7.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+122,Refrigerator,Electronics & appliances,item,450.0,0.1,45.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+123,Washing machine,Electronics & appliances,item,420.0,0.1,42.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+124,Dishwasher,Electronics & appliances,item,400.0,0.1,40.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+125,Air conditioner,Electronics & appliances,item,650.0,0.1,65.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+126,Hair dryer,Electronics & appliances,item,40.0,0.1,4.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+127,Electric toothbrush,Electronics & appliances,item,18.0,0.1,1.8,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+128,Iron,Electronics & appliances,item,75.0,0.1,7.5,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+129,Desk lamp,Electronics & appliances,item,30.0,0.1,3.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+130,LED light bulb,Electronics & appliances,item,3.0,0.1,0.3,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+131,Battery AA 4-pack,Electronics & appliances,item,2.0,0.1,0.2,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+132,Portable hard drive,Electronics & appliances,item,35.0,0.1,3.5,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+133,Game controller,Electronics & appliances,item,30.0,0.1,3.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+134,Smart home camera,Electronics & appliances,item,45.0,0.1,4.5,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+135,Projector,Electronics & appliances,item,300.0,0.1,30.0,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+136,Bluetooth tracker,Electronics & appliances,item,6.0,0.1,0.6,Illustrative proxy extrapolated from published device footprint examples; NOT product-specific,Very low — model assumption
+137,T-shirt (general),Fashion & textiles,item,6.43,0.1,0.643,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+138,Polo shirt,Fashion & textiles,item,10.0,0.1,1.0,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+139,Casual shirt,Fashion & textiles,item,13.2,0.1,1.32,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+140,Formal shirt,Fashion & textiles,item,15.0,0.1,1.5,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+141,Blouse,Fashion & textiles,item,14.0,0.1,1.4,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+142,Hoodie,Fashion & textiles,item,27.0,0.1,2.7,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+143,Sweatshirt,Fashion & textiles,item,23.0,0.1,2.3,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+144,Cardigan,Fashion & textiles,item,31.0,0.1,3.1,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+145,Sweater (general),Fashion & textiles,item,35.0,0.1,3.5,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+146,Jeans (general),Fashion & textiles,item,25.1,0.1,2.51,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+147,Denim shorts,Fashion & textiles,item,17.0,0.1,1.7,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+148,Cotton shorts,Fashion & textiles,item,12.0,0.1,1.2,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+149,Trousers,Fashion & textiles,item,20.0,0.1,2.0,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+150,Leggings,Fashion & textiles,item,12.0,0.1,1.2,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+151,Skirt,Fashion & textiles,item,19.0,0.1,1.9,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+152,Casual dress,Fashion & textiles,item,45.0,0.1,4.5,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+153,Jacket,Fashion & textiles,item,65.0,0.1,6.5,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+154,Winter coat,Fashion & textiles,item,101.0,0.1,10.1,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+155,Raincoat,Fashion & textiles,item,55.0,0.1,5.5,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+156,Sports jersey,Fashion & textiles,item,14.0,0.1,1.4,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+157,Sports shorts,Fashion & textiles,item,12.0,0.1,1.2,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+158,Sports leggings,Fashion & textiles,item,16.0,0.1,1.6,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+159,Underwear 3-pack,Fashion & textiles,item,8.0,0.1,0.8,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+160,Socks 3-pack,Fashion & textiles,item,6.0,0.1,0.6,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+161,Pajama set,Fashion & textiles,item,22.0,0.1,2.2,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+162,Swimsuit,Fashion & textiles,item,14.0,0.1,1.4,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+163,Cap,Fashion & textiles,item,7.0,0.1,0.7,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+164,Scarf,Fashion & textiles,item,12.0,0.1,1.2,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+165,Gloves pair,Fashion & textiles,item,10.0,0.1,1.0,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+166,Canvas tote bag,Fashion & textiles,item,8.0,0.1,0.8,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+167,Backpack,Fashion & textiles,item,30.0,0.1,3.0,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+168,Handbag (synthetic),Fashion & textiles,item,35.0,0.1,3.5,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+169,Leather handbag,Fashion & textiles,item,70.0,0.1,7.0,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+170,Wallet,Fashion & textiles,item,12.0,0.1,1.2,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+171,Belt,Fashion & textiles,item,12.0,0.1,1.2,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+172,Sneakers pair,Fashion & textiles,item,18.5,0.1,1.85,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+173,Running shoes pair,Fashion & textiles,item,22.0,0.1,2.2,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+174,Sandals pair,Fashion & textiles,item,12.0,0.1,1.2,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+175,Formal leather shoes pair,Fashion & textiles,item,15.0,0.1,1.5,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+176,Slippers pair,Fashion & textiles,item,8.0,0.1,0.8,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+177,School uniform set,Fashion & textiles,item,29.0,0.1,2.9,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+178,Baby onesie,Fashion & textiles,item,7.0,0.1,0.7,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+179,Baby clothing set,Fashion & textiles,item,18.0,0.1,1.8,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+180,Bedsheet set,Fashion & textiles,item,25.0,0.1,2.5,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+181,Bath towel,Fashion & textiles,item,11.0,0.1,1.1,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+182,Blanket,Fashion & textiles,item,35.0,0.1,3.5,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+183,Curtain pair,Fashion & textiles,item,42.0,0.1,4.2,Published apparel item model or illustrative analogous apparel proxy,Medium for direct reference; low for analogous products
+184,Ground beef — 100 g,Food,item,9.948,0.2,1.9896,Illustrative 0.1 kg × Beef (beef herd) global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+185,Ground beef — 250 g,Food,item,24.87,0.2,4.974,Illustrative 0.25 kg × Beef (beef herd) global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+186,Ground beef — 500 g,Food,item,49.74,0.2,9.948,Illustrative 0.5 kg × Beef (beef herd) global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+187,Ground beef — 1 kg,Food,item,99.48,0.2,19.896,Illustrative 1 kg × Beef (beef herd) global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+188,Beef steak — 100 g,Food,item,9.948,0.2,1.9896,Illustrative 0.1 kg × Beef (beef herd) global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+189,Beef steak — 250 g,Food,item,24.87,0.2,4.974,Illustrative 0.25 kg × Beef (beef herd) global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+190,Beef steak — 500 g,Food,item,49.74,0.2,9.948,Illustrative 0.5 kg × Beef (beef herd) global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+191,Beef steak — 1 kg,Food,item,99.48,0.2,19.896,Illustrative 1 kg × Beef (beef herd) global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+192,Beef burger patties — 100 g,Food,item,9.948,0.2,1.9896,Illustrative 0.1 kg × Beef (beef herd) global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+193,Beef burger patties — 250 g,Food,item,24.87,0.2,4.974,Illustrative 0.25 kg × Beef (beef herd) global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+194,Beef burger patties — 500 g,Food,item,49.74,0.2,9.948,Illustrative 0.5 kg × Beef (beef herd) global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+195,Beef burger patties — 1 kg,Food,item,99.48,0.2,19.896,Illustrative 1 kg × Beef (beef herd) global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+196,Chicken breast — 100 g,Food,item,0.987,0.2,0.1974,Illustrative 0.1 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+197,Chicken breast — 250 g,Food,item,2.4675,0.2,0.4935,Illustrative 0.25 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+198,Chicken breast — 500 g,Food,item,4.935,0.2,0.987,Illustrative 0.5 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+199,Chicken breast — 1 kg,Food,item,9.87,0.2,1.974,Illustrative 1 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+200,Chicken thigh — 100 g,Food,item,0.987,0.2,0.1974,Illustrative 0.1 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+201,Chicken thigh — 250 g,Food,item,2.4675,0.2,0.4935,Illustrative 0.25 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+202,Chicken thigh — 500 g,Food,item,4.935,0.2,0.987,Illustrative 0.5 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+203,Chicken thigh — 1 kg,Food,item,9.87,0.2,1.974,Illustrative 1 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+204,Chicken nuggets — 100 g,Food,item,0.987,0.2,0.1974,Illustrative 0.1 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+205,Chicken nuggets — 250 g,Food,item,2.4675,0.2,0.4935,Illustrative 0.25 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+206,Chicken nuggets — 500 g,Food,item,4.935,0.2,0.987,Illustrative 0.5 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+207,Chicken nuggets — 1 kg,Food,item,9.87,0.2,1.974,Illustrative 1 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+208,Turkey slices — 100 g,Food,item,0.987,0.2,0.1974,Illustrative 0.1 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+209,Turkey slices — 250 g,Food,item,2.4675,0.2,0.4935,Illustrative 0.25 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+210,Turkey slices — 500 g,Food,item,4.935,0.2,0.987,Illustrative 0.5 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+211,Turkey slices — 1 kg,Food,item,9.87,0.2,1.974,Illustrative 1 kg × Poultry global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+212,Pork belly — 100 g,Food,item,1.231,0.2,0.2462,Illustrative 0.1 kg × Pork global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+213,Pork belly — 250 g,Food,item,3.0775,0.2,0.6155,Illustrative 0.25 kg × Pork global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+214,Pork belly — 500 g,Food,item,6.155,0.2,1.231,Illustrative 0.5 kg × Pork global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+215,Pork belly — 1 kg,Food,item,12.31,0.2,2.462,Illustrative 1 kg × Pork global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+216,Pork mince — 100 g,Food,item,1.231,0.2,0.2462,Illustrative 0.1 kg × Pork global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+217,Pork mince — 250 g,Food,item,3.0775,0.2,0.6155,Illustrative 0.25 kg × Pork global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+218,Pork mince — 500 g,Food,item,6.155,0.2,1.231,Illustrative 0.5 kg × Pork global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+219,Pork mince — 1 kg,Food,item,12.31,0.2,2.462,Illustrative 1 kg × Pork global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+220,Pork sausages — 100 g,Food,item,1.231,0.2,0.2462,Illustrative 0.1 kg × Pork global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+221,Pork sausages — 250 g,Food,item,3.0775,0.2,0.6155,Illustrative 0.25 kg × Pork global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+222,Pork sausages — 500 g,Food,item,6.155,0.2,1.231,Illustrative 0.5 kg × Pork global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+223,Pork sausages — 1 kg,Food,item,12.31,0.2,2.462,Illustrative 1 kg × Pork global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+224,Lamb chops — 100 g,Food,item,3.972,0.2,0.7944,Illustrative 0.1 kg × Lamb and mutton global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+225,Lamb chops — 250 g,Food,item,9.93,0.2,1.986,Illustrative 0.25 kg × Lamb and mutton global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+226,Lamb chops — 500 g,Food,item,19.86,0.2,3.972,Illustrative 0.5 kg × Lamb and mutton global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+227,Lamb chops — 1 kg,Food,item,39.72,0.2,7.944,Illustrative 1 kg × Lamb and mutton global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+228,Salmon fillet — 100 g,Food,item,1.041,0.2,0.2082,Illustrative 0.1 kg × Salmon global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+229,Salmon fillet — 250 g,Food,item,2.6025,0.2,0.5205,Illustrative 0.25 kg × Salmon global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+230,Salmon fillet — 500 g,Food,item,5.205,0.2,1.041,Illustrative 0.5 kg × Salmon global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+231,Salmon fillet — 1 kg,Food,item,10.41,0.2,2.082,Illustrative 1 kg × Salmon global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+232,Frozen prawns — 100 g,Food,item,2.687,0.2,0.5374,Illustrative 0.1 kg × Farmed prawns global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+233,Frozen prawns — 250 g,Food,item,6.7175,0.2,1.3435,Illustrative 0.25 kg × Farmed prawns global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+234,Frozen prawns — 500 g,Food,item,13.435,0.2,2.687,Illustrative 0.5 kg × Farmed prawns global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+235,Frozen prawns — 1 kg,Food,item,26.87,0.2,5.374,Illustrative 1 kg × Farmed prawns global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+236,Cheddar cheese — 100 g,Food,item,2.388,0.2,0.4776,Illustrative 0.1 kg × Cheese global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+237,Cheddar cheese — 250 g,Food,item,5.97,0.2,1.194,Illustrative 0.25 kg × Cheese global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+238,Cheddar cheese — 500 g,Food,item,11.94,0.2,2.388,Illustrative 0.5 kg × Cheese global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+239,Cheddar cheese — 1 kg,Food,item,23.88,0.2,4.776,Illustrative 1 kg × Cheese global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+240,Mozzarella cheese — 100 g,Food,item,2.388,0.2,0.4776,Illustrative 0.1 kg × Cheese global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+241,Mozzarella cheese — 250 g,Food,item,5.97,0.2,1.194,Illustrative 0.25 kg × Cheese global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+242,Mozzarella cheese — 500 g,Food,item,11.94,0.2,2.388,Illustrative 0.5 kg × Cheese global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+243,Mozzarella cheese — 1 kg,Food,item,23.88,0.2,4.776,Illustrative 1 kg × Cheese global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+244,Yogurt — 100 g,Food,item,0.315,0.2,0.063,Illustrative 0.1 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+245,Yogurt — 250 g,Food,item,0.7875,0.2,0.1575,Illustrative 0.25 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+246,Yogurt — 500 g,Food,item,1.575,0.2,0.315,Illustrative 0.5 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+247,Yogurt — 1 kg,Food,item,3.15,0.2,0.63,Illustrative 1 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+248,Greek yogurt — 100 g,Food,item,0.315,0.2,0.063,Illustrative 0.1 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+249,Greek yogurt — 250 g,Food,item,0.7875,0.2,0.1575,Illustrative 0.25 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+250,Greek yogurt — 500 g,Food,item,1.575,0.2,0.315,Illustrative 0.5 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+251,Greek yogurt — 1 kg,Food,item,3.15,0.2,0.63,Illustrative 1 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+252,Fresh cream — 100 g,Food,item,0.315,0.2,0.063,Illustrative 0.1 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+253,Fresh cream — 250 g,Food,item,0.7875,0.2,0.1575,Illustrative 0.25 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+254,Fresh cream — 500 g,Food,item,1.575,0.2,0.315,Illustrative 0.5 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+255,Fresh cream — 1 kg,Food,item,3.15,0.2,0.63,Illustrative 1 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+256,Butter (milk proxy) — 100 g,Food,item,0.315,0.2,0.063,Illustrative 0.1 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+257,Butter (milk proxy) — 250 g,Food,item,0.7875,0.2,0.1575,Illustrative 0.25 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+258,Butter (milk proxy) — 500 g,Food,item,1.575,0.2,0.315,Illustrative 0.5 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+259,Butter (milk proxy) — 1 kg,Food,item,3.15,0.2,0.63,Illustrative 1 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+260,Milk powder (milk proxy) — 100 g,Food,item,0.315,0.2,0.063,Illustrative 0.1 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+261,Milk powder (milk proxy) — 250 g,Food,item,0.7875,0.2,0.1575,Illustrative 0.25 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+262,Milk powder (milk proxy) — 500 g,Food,item,1.575,0.2,0.315,Illustrative 0.5 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+263,Milk powder (milk proxy) — 1 kg,Food,item,3.15,0.2,0.63,Illustrative 1 kg × Milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+264,White rice — 100 g,Food,item,0.445,0.2,0.089,Illustrative 0.1 kg × Rice global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+265,White rice — 250 g,Food,item,1.1125,0.2,0.2225,Illustrative 0.25 kg × Rice global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+266,White rice — 500 g,Food,item,2.225,0.2,0.445,Illustrative 0.5 kg × Rice global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+267,White rice — 1 kg,Food,item,4.45,0.2,0.89,Illustrative 1 kg × Rice global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+268,Brown rice — 100 g,Food,item,0.445,0.2,0.089,Illustrative 0.1 kg × Rice global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+269,Brown rice — 250 g,Food,item,1.1125,0.2,0.2225,Illustrative 0.25 kg × Rice global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+270,Brown rice — 500 g,Food,item,2.225,0.2,0.445,Illustrative 0.5 kg × Rice global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+271,Brown rice — 1 kg,Food,item,4.45,0.2,0.89,Illustrative 1 kg × Rice global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+272,Rice noodles (rice proxy) — 100 g,Food,item,0.445,0.2,0.089,Illustrative 0.1 kg × Rice global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+273,Rice noodles (rice proxy) — 250 g,Food,item,1.1125,0.2,0.2225,Illustrative 0.25 kg × Rice global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+274,Rice noodles (rice proxy) — 500 g,Food,item,2.225,0.2,0.445,Illustrative 0.5 kg × Rice global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+275,Rice noodles (rice proxy) — 1 kg,Food,item,4.45,0.2,0.89,Illustrative 1 kg × Rice global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+276,Bread (wheat proxy) — 100 g,Food,item,0.157,0.2,0.0314,Illustrative 0.1 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+277,Bread (wheat proxy) — 250 g,Food,item,0.3925,0.2,0.0785,Illustrative 0.25 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+278,Bread (wheat proxy) — 500 g,Food,item,0.785,0.2,0.157,Illustrative 0.5 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+279,Bread (wheat proxy) — 1 kg,Food,item,1.57,0.2,0.314,Illustrative 1 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+280,Bagels (wheat proxy) — 100 g,Food,item,0.157,0.2,0.0314,Illustrative 0.1 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+281,Bagels (wheat proxy) — 250 g,Food,item,0.3925,0.2,0.0785,Illustrative 0.25 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+282,Bagels (wheat proxy) — 500 g,Food,item,0.785,0.2,0.157,Illustrative 0.5 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+283,Bagels (wheat proxy) — 1 kg,Food,item,1.57,0.2,0.314,Illustrative 1 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+284,Buns (wheat proxy) — 100 g,Food,item,0.157,0.2,0.0314,Illustrative 0.1 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+285,Buns (wheat proxy) — 250 g,Food,item,0.3925,0.2,0.0785,Illustrative 0.25 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+286,Buns (wheat proxy) — 500 g,Food,item,0.785,0.2,0.157,Illustrative 0.5 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+287,Buns (wheat proxy) — 1 kg,Food,item,1.57,0.2,0.314,Illustrative 1 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+288,Flour (wheat proxy) — 100 g,Food,item,0.157,0.2,0.0314,Illustrative 0.1 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+289,Flour (wheat proxy) — 250 g,Food,item,0.3925,0.2,0.0785,Illustrative 0.25 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+290,Flour (wheat proxy) — 500 g,Food,item,0.785,0.2,0.157,Illustrative 0.5 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+291,Flour (wheat proxy) — 1 kg,Food,item,1.57,0.2,0.314,Illustrative 1 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+292,Pasta (wheat proxy) — 100 g,Food,item,0.157,0.2,0.0314,Illustrative 0.1 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+293,Pasta (wheat proxy) — 250 g,Food,item,0.3925,0.2,0.0785,Illustrative 0.25 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+294,Pasta (wheat proxy) — 500 g,Food,item,0.785,0.2,0.157,Illustrative 0.5 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+295,Pasta (wheat proxy) — 1 kg,Food,item,1.57,0.2,0.314,Illustrative 1 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+296,Breakfast cereal (wheat proxy) — 100 g,Food,item,0.157,0.2,0.0314,Illustrative 0.1 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+297,Breakfast cereal (wheat proxy) — 250 g,Food,item,0.3925,0.2,0.0785,Illustrative 0.25 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+298,Breakfast cereal (wheat proxy) — 500 g,Food,item,0.785,0.2,0.157,Illustrative 0.5 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+299,Breakfast cereal (wheat proxy) — 1 kg,Food,item,1.57,0.2,0.314,Illustrative 1 kg × Wheat and rye global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+300,Cornflakes (maize proxy) — 100 g,Food,item,0.17,0.2,0.034,Illustrative 0.1 kg × Maize global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+301,Cornflakes (maize proxy) — 250 g,Food,item,0.425,0.2,0.085,Illustrative 0.25 kg × Maize global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+302,Cornflakes (maize proxy) — 500 g,Food,item,0.85,0.2,0.17,Illustrative 0.5 kg × Maize global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+303,Cornflakes (maize proxy) — 1 kg,Food,item,1.7,0.2,0.34,Illustrative 1 kg × Maize global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+304,Popcorn kernels — 100 g,Food,item,0.17,0.2,0.034,Illustrative 0.1 kg × Maize global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+305,Popcorn kernels — 250 g,Food,item,0.425,0.2,0.085,Illustrative 0.25 kg × Maize global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+306,Popcorn kernels — 500 g,Food,item,0.85,0.2,0.17,Illustrative 0.5 kg × Maize global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+307,Popcorn kernels — 1 kg,Food,item,1.7,0.2,0.34,Illustrative 1 kg × Maize global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+308,Frozen peas — 100 g,Food,item,0.098,0.2,0.0196,Illustrative 0.1 kg × Peas global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+309,Frozen peas — 250 g,Food,item,0.245,0.2,0.049,Illustrative 0.25 kg × Peas global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+310,Frozen peas — 500 g,Food,item,0.49,0.2,0.098,Illustrative 0.5 kg × Peas global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+311,Frozen peas — 1 kg,Food,item,0.98,0.2,0.196,Illustrative 1 kg × Peas global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+312,Canned beans — 100 g,Food,item,0.137,0.2,0.0274,Illustrative 0.1 kg × Beans global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+313,Canned beans — 250 g,Food,item,0.3425,0.2,0.0685,Illustrative 0.25 kg × Beans global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+314,Canned beans — 500 g,Food,item,0.685,0.2,0.137,Illustrative 0.5 kg × Beans global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+315,Canned beans — 1 kg,Food,item,1.37,0.2,0.274,Illustrative 1 kg × Beans global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+316,Tofu (soy milk proxy) — 100 g,Food,item,0.098,0.2,0.0196,Illustrative 0.1 kg × Soy milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+317,Tofu (soy milk proxy) — 250 g,Food,item,0.245,0.2,0.049,Illustrative 0.25 kg × Soy milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+318,Tofu (soy milk proxy) — 500 g,Food,item,0.49,0.2,0.098,Illustrative 0.5 kg × Soy milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+319,Tofu (soy milk proxy) — 1 kg,Food,item,0.98,0.2,0.196,Illustrative 1 kg × Soy milk global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+320,Potato chips (potato proxy) — 100 g,Food,item,0.046,0.2,0.0092,Illustrative 0.1 kg × Potatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+321,Potato chips (potato proxy) — 250 g,Food,item,0.115,0.2,0.023,Illustrative 0.25 kg × Potatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+322,Potato chips (potato proxy) — 500 g,Food,item,0.23,0.2,0.046,Illustrative 0.5 kg × Potatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+323,Potato chips (potato proxy) — 1 kg,Food,item,0.46,0.2,0.092,Illustrative 1 kg × Potatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+324,French fries (potato proxy) — 100 g,Food,item,0.046,0.2,0.0092,Illustrative 0.1 kg × Potatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+325,French fries (potato proxy) — 250 g,Food,item,0.115,0.2,0.023,Illustrative 0.25 kg × Potatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+326,French fries (potato proxy) — 500 g,Food,item,0.23,0.2,0.046,Illustrative 0.5 kg × Potatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+327,French fries (potato proxy) — 1 kg,Food,item,0.46,0.2,0.092,Illustrative 1 kg × Potatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+328,Sweet potatoes (root proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+329,Sweet potatoes (root proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+330,Sweet potatoes (root proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+331,Sweet potatoes (root proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+332,Carrots (root proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+333,Carrots (root proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+334,Carrots (root proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+335,Carrots (root proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+336,Onions (root proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+337,Onions (root proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+338,Onions (root proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+339,Onions (root proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+340,Cabbage (root proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+341,Cabbage (root proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+342,Cabbage (root proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+343,Cabbage (root proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+344,Lettuce (root proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+345,Lettuce (root proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+346,Lettuce (root proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+347,Lettuce (root proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+348,Spinach (root proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+349,Spinach (root proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+350,Spinach (root proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+351,Spinach (root proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+352,Broccoli (root proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+353,Broccoli (root proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+354,Broccoli (root proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+355,Broccoli (root proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+356,Cucumber (root proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+357,Cucumber (root proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+358,Cucumber (root proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+359,Cucumber (root proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Root vegetables global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+360,Strawberries (apple proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+361,Strawberries (apple proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+362,Strawberries (apple proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+363,Strawberries (apple proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+364,Grapes (apple proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+365,Grapes (apple proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+366,Grapes (apple proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+367,Grapes (apple proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+368,Oranges (apple proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+369,Oranges (apple proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+370,Oranges (apple proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+371,Oranges (apple proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+372,Mandarins (apple proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+373,Mandarins (apple proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+374,Mandarins (apple proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+375,Mandarins (apple proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+376,Watermelon (apple proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+377,Watermelon (apple proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+378,Watermelon (apple proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+379,Watermelon (apple proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Apples global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+380,Mango (pineapple proxy) — 100 g,Food,item,0.093,0.2,0.0186,Illustrative 0.1 kg × Pineapple global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+381,Mango (pineapple proxy) — 250 g,Food,item,0.2325,0.2,0.0465,Illustrative 0.25 kg × Pineapple global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+382,Mango (pineapple proxy) — 500 g,Food,item,0.465,0.2,0.093,Illustrative 0.5 kg × Pineapple global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+383,Mango (pineapple proxy) — 1 kg,Food,item,0.93,0.2,0.186,Illustrative 1 kg × Pineapple global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+384,Pineapple slices — 100 g,Food,item,0.093,0.2,0.0186,Illustrative 0.1 kg × Pineapple global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+385,Pineapple slices — 250 g,Food,item,0.2325,0.2,0.0465,Illustrative 0.25 kg × Pineapple global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+386,Pineapple slices — 500 g,Food,item,0.465,0.2,0.093,Illustrative 0.5 kg × Pineapple global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+387,Pineapple slices — 1 kg,Food,item,0.93,0.2,0.186,Illustrative 1 kg × Pineapple global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+388,Banana chips (banana proxy) — 100 g,Food,item,0.086,0.2,0.0172,Illustrative 0.1 kg × Bananas global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+389,Banana chips (banana proxy) — 250 g,Food,item,0.215,0.2,0.043,Illustrative 0.25 kg × Bananas global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+390,Banana chips (banana proxy) — 500 g,Food,item,0.43,0.2,0.086,Illustrative 0.5 kg × Bananas global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+391,Banana chips (banana proxy) — 1 kg,Food,item,0.86,0.2,0.172,Illustrative 1 kg × Bananas global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+392,Mixed nuts — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+393,Mixed nuts — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+394,Mixed nuts — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+395,Mixed nuts — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+396,Peanut butter (nuts proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+397,Peanut butter (nuts proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+398,Peanut butter (nuts proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+399,Peanut butter (nuts proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+400,Almonds — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+401,Almonds — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+402,Almonds — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+403,Almonds — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+404,Cashews (nuts proxy) — 100 g,Food,item,0.043,0.2,0.0086,Illustrative 0.1 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+405,Cashews (nuts proxy) — 250 g,Food,item,0.1075,0.2,0.0215,Illustrative 0.25 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+406,Cashews (nuts proxy) — 500 g,Food,item,0.215,0.2,0.043,Illustrative 0.5 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+407,Cashews (nuts proxy) — 1 kg,Food,item,0.43,0.2,0.086,Illustrative 1 kg × Nuts global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+408,Olive oil (rapeseed proxy) — 100 g,Food,item,0.329,0.2,0.0658,Illustrative 0.1 kg × Rapeseed oil global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+409,Olive oil (rapeseed proxy) — 250 g,Food,item,0.8225,0.2,0.1645,Illustrative 0.25 kg × Rapeseed oil global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+410,Olive oil (rapeseed proxy) — 500 g,Food,item,1.645,0.2,0.329,Illustrative 0.5 kg × Rapeseed oil global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+411,Olive oil (rapeseed proxy) — 1 kg,Food,item,3.29,0.2,0.658,Illustrative 1 kg × Rapeseed oil global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+412,Cooking oil — 100 g,Food,item,0.329,0.2,0.0658,Illustrative 0.1 kg × Rapeseed oil global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+413,Cooking oil — 250 g,Food,item,0.8225,0.2,0.1645,Illustrative 0.25 kg × Rapeseed oil global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+414,Cooking oil — 500 g,Food,item,1.645,0.2,0.329,Illustrative 0.5 kg × Rapeseed oil global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+415,Cooking oil — 1 kg,Food,item,3.29,0.2,0.658,Illustrative 1 kg × Rapeseed oil global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+416,Tomato sauce (tomato proxy) — 100 g,Food,item,0.209,0.2,0.0418,Illustrative 0.1 kg × Tomatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+417,Tomato sauce (tomato proxy) — 250 g,Food,item,0.5225,0.2,0.1045,Illustrative 0.25 kg × Tomatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+418,Tomato sauce (tomato proxy) — 500 g,Food,item,1.045,0.2,0.209,Illustrative 0.5 kg × Tomatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+419,Tomato sauce (tomato proxy) — 1 kg,Food,item,2.09,0.2,0.418,Illustrative 1 kg × Tomatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+420,Tomato paste (tomato proxy) — 100 g,Food,item,0.209,0.2,0.0418,Illustrative 0.1 kg × Tomatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+421,Tomato paste (tomato proxy) — 250 g,Food,item,0.5225,0.2,0.1045,Illustrative 0.25 kg × Tomatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+422,Tomato paste (tomato proxy) — 500 g,Food,item,1.045,0.2,0.209,Illustrative 0.5 kg × Tomatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+423,Tomato paste (tomato proxy) — 1 kg,Food,item,2.09,0.2,0.418,Illustrative 1 kg × Tomatoes global kg-product footprint; recipe and packaging omitted,Low — weight/category proxy
+424,Milk carton 1 L,Food,item,3.15,0.2,0.63,Illustrative package-weight category proxy,Low — package assumption
+425,Milk carton 2 L,Food,item,6.3,0.2,1.26,Illustrative package-weight category proxy,Low — package assumption
+426,Soy milk 1 L,Food,item,0.98,0.2,0.196,Illustrative package-weight category proxy,Low — package assumption
+427,Almond milk 1 L,Food,item,0.66,0.2,0.132,Illustrative package-weight category proxy,Low — package assumption
+428,Rice milk 1 L,Food,item,1.44,0.2,0.288,Illustrative package-weight category proxy,Low — package assumption
+429,Cheese 200 g,Food,item,4.776,0.2,0.9552,Illustrative package-weight category proxy,Low — package assumption
+430,Eggs 6-pack,Food,item,1.6812,0.2,0.3362,Illustrative package-weight category proxy,Low — package assumption
+431,Eggs 10-pack,Food,item,2.802,0.2,0.5604,Illustrative package-weight category proxy,Low — package assumption
+432,Apples 6-pack,Food,item,0.387,0.2,0.0774,Illustrative package-weight category proxy,Low — package assumption
+433,Bananas 6-pack,Food,item,0.688,0.2,0.1376,Illustrative package-weight category proxy,Low — package assumption
+434,Shampoo 500 mL,Beauty & personal care,item,2.2,0.1,0.22,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+435,Conditioner 500 mL,Beauty & personal care,item,2.3,0.1,0.23,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+436,Body wash 500 mL,Beauty & personal care,item,2.2,0.1,0.22,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+437,Hand soap 250 mL,Beauty & personal care,item,1.0,0.1,0.1,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+438,Bar soap,Beauty & personal care,item,0.6,0.1,0.06,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+439,Toothpaste tube,Beauty & personal care,item,0.5,0.1,0.05,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+440,Toothbrush,Beauty & personal care,item,0.3,0.1,0.03,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+441,Face cleanser 150 mL,Beauty & personal care,item,0.9,0.1,0.09,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+442,Face moisturiser 50 mL,Beauty & personal care,item,0.8,0.1,0.08,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+443,Sunscreen 50 mL,Beauty & personal care,item,0.9,0.1,0.09,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+444,Deodorant stick,Beauty & personal care,item,0.8,0.1,0.08,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+445,Perfume 50 mL,Beauty & personal care,item,2.4,0.1,0.24,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+446,Lip balm,Beauty & personal care,item,0.2,0.1,0.02,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+447,Lipstick,Beauty & personal care,item,0.5,0.1,0.05,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+448,Mascara,Beauty & personal care,item,0.5,0.1,0.05,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+449,Foundation 30 mL,Beauty & personal care,item,0.9,0.1,0.09,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+450,Nail polish,Beauty & personal care,item,0.5,0.1,0.05,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+451,Hair gel 200 mL,Beauty & personal care,item,0.9,0.1,0.09,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+452,Shaving cream,Beauty & personal care,item,0.8,0.1,0.08,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+453,Razor pack,Beauty & personal care,item,0.9,0.1,0.09,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+454,Cotton pads 100-pack,Beauty & personal care,item,0.4,0.1,0.04,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+455,Sanitary pads pack,Beauty & personal care,item,1.2,0.1,0.12,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+456,Diapers 20-pack,Beauty & personal care,item,5.0,0.1,0.5,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+457,Laundry detergent 1 L,Household & cleaning,item,3.0,0.1,0.3,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+458,Dishwashing liquid 500 mL,Household & cleaning,item,1.4,0.1,0.14,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+459,Surface cleaner 500 mL,Household & cleaning,item,1.5,0.1,0.15,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+460,Fabric softener 1 L,Household & cleaning,item,2.6,0.1,0.26,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+461,Bleach 1 L,Household & cleaning,item,1.5,0.1,0.15,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+462,Sponges 3-pack,Household & cleaning,item,0.6,0.1,0.06,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+463,Kitchen towel roll,Household & cleaning,item,0.9,0.1,0.09,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+464,Toilet paper 10 rolls,Household & cleaning,item,4.5,0.1,0.45,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+465,Tissues 200 sheets,Household & cleaning,item,1.2,0.1,0.12,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+466,Trash bags 20-pack,Household & cleaning,item,2.0,0.1,0.2,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+467,Food storage container,Household & cleaning,item,1.8,0.1,0.18,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+468,Reusable water bottle,Household & cleaning,item,3.0,0.1,0.3,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+469,Glass jar,Household & cleaning,item,1.0,0.1,0.1,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+470,Ceramic mug,Household & cleaning,item,1.3,0.1,0.13,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+471,Plate ceramic,Household & cleaning,item,1.6,0.1,0.16,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+472,Cutlery set,Household & cleaning,item,3.0,0.1,0.3,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+473,Frying pan,Household & cleaning,item,12.0,0.1,1.2,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+474,Cooking pot,Household & cleaning,item,14.0,0.1,1.4,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+475,Broom,Household & cleaning,item,3.0,0.1,0.3,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+476,Mop,Household & cleaning,item,4.0,0.1,0.4,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+477,Laundry basket,Household & cleaning,item,6.0,0.1,0.6,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+478,Plastic hangers 10-pack,Household & cleaning,item,3.0,0.1,0.3,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+479,Pillow,Household & cleaning,item,8.0,0.1,0.8,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+480,Mattress,Household & cleaning,item,120.0,0.1,12.0,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+481,Plastic chair,Household & cleaning,item,28.0,0.1,2.8,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+482,Wooden chair,Household & cleaning,item,45.0,0.1,4.5,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+483,Small desk,Household & cleaning,item,90.0,0.1,9.0,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+484,Bookshelf,Household & cleaning,item,75.0,0.1,7.5,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+485,Sofa,Household & cleaning,item,200.0,0.1,20.0,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+486,Notebook A5,Stationery & books,item,1.2,0.1,0.12,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+487,Notebook A4,Stationery & books,item,2.0,0.1,0.2,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+488,Ballpoint pen,Stationery & books,item,0.1,0.1,0.01,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+489,Gel pen,Stationery & books,item,0.12,0.1,0.012,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+490,Pencil 10-pack,Stationery & books,item,0.4,0.1,0.04,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+491,Eraser,Stationery & books,item,0.08,0.1,0.008,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+492,Highlighter,Stationery & books,item,0.15,0.1,0.015,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+493,Marker pack,Stationery & books,item,0.8,0.1,0.08,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+494,Printer paper 500 sheets,Stationery & books,item,3.5,0.1,0.35,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+495,Paperback book,Stationery & books,item,2.5,0.1,0.25,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+496,Hardcover book,Stationery & books,item,4.0,0.1,0.4,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+497,Textbook,Stationery & books,item,6.0,0.1,0.6,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+498,Calendar,Stationery & books,item,1.8,0.1,0.18,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+499,Folder,Stationery & books,item,0.5,0.1,0.05,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+500,Ring binder,Stationery & books,item,1.4,0.1,0.14,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+501,Tape roll,Stationery & books,item,0.3,0.1,0.03,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+502,Glue stick,Stationery & books,item,0.2,0.1,0.02,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+503,Scissors,Stationery & books,item,1.2,0.1,0.12,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+504,Ruler plastic,Stationery & books,item,0.2,0.1,0.02,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+505,Back-to-school stationery kit,Stationery & books,item,4.0,0.1,0.4,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+506,Plastic toy figure,Toys & leisure,item,2.0,0.1,0.2,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+507,Stuffed toy,Toys & leisure,item,4.0,0.1,0.4,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+508,Board game,Toys & leisure,item,7.0,0.1,0.7,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+509,Jigsaw puzzle,Toys & leisure,item,3.0,0.1,0.3,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+510,Trading card pack,Toys & leisure,item,0.25,0.1,0.025,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+511,Building blocks set,Toys & leisure,item,15.0,0.1,1.5,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+512,Toy car,Toys & leisure,item,2.5,0.1,0.25,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+513,Doll,Toys & leisure,item,6.0,0.1,0.6,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+514,Action figure,Toys & leisure,item,3.5,0.1,0.35,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+515,Football,Toys & leisure,item,3.0,0.1,0.3,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+516,Basketball,Toys & leisure,item,4.0,0.1,0.4,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+517,Yoga mat,Toys & leisure,item,5.0,0.1,0.5,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+518,Resistance bands set,Toys & leisure,item,2.0,0.1,0.2,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+519,Water bottle sports,Toys & leisure,item,2.0,0.1,0.2,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+520,Bicycle helmet,Toys & leisure,item,8.0,0.1,0.8,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+521,Camping tent,Toys & leisure,item,55.0,0.1,5.5,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+522,Sleeping bag,Toys & leisure,item,25.0,0.1,2.5,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+523,Suitcase,Toys & leisure,item,35.0,0.1,3.5,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+524,Umbrella,Toys & leisure,item,4.0,0.1,0.4,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+525,Sunglasses,Toys & leisure,item,2.5,0.1,0.25,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+526,Dry pet food 1 kg,Pet supplies,item,5.0,0.1,0.5,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+527,Wet pet food 400 g,Pet supplies,item,2.5,0.1,0.25,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+528,Cat litter 5 kg,Pet supplies,item,6.0,0.1,0.6,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+529,Pet shampoo,Pet supplies,item,1.5,0.1,0.15,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+530,Pet toy,Pet supplies,item,1.2,0.1,0.12,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+531,Pet bed,Pet supplies,item,12.0,0.1,1.2,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+532,Pet leash,Pet supplies,item,2.0,0.1,0.2,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+533,Pet bowl,Pet supplies,item,2.0,0.1,0.2,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+534,Baby wipes 80-pack,Baby & family,item,1.3,0.1,0.13,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+535,Baby lotion 200 mL,Baby & family,item,1.0,0.1,0.1,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+536,Baby shampoo 250 mL,Baby & family,item,1.1,0.1,0.11,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+537,Baby bottle,Baby & family,item,2.0,0.1,0.2,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+538,Pacifier 2-pack,Baby & family,item,0.6,0.1,0.06,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+539,Baby blanket,Baby & family,item,6.0,0.1,0.6,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+540,Baby stroller,Baby & family,item,85.0,0.1,8.5,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+541,Baby high chair,Baby & family,item,50.0,0.1,5.0,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+542,LED strip light,Home improvement,item,8.0,0.1,0.8,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+543,Extension socket,Home improvement,item,5.0,0.1,0.5,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+544,Screwdriver set,Home improvement,item,5.0,0.1,0.5,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+545,Toolbox,Home improvement,item,12.0,0.1,1.2,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+546,Paint 1 L,Home improvement,item,5.0,0.1,0.5,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+547,Paint brush,Home improvement,item,0.7,0.1,0.07,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+548,Door mat,Home improvement,item,4.0,0.1,0.4,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+549,Flower pot plastic,Home improvement,item,2.0,0.1,0.2,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+550,Flower pot ceramic,Home improvement,item,5.0,0.1,0.5,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+551,Garden hose,Home improvement,item,8.0,0.1,0.8,Illustrative broad-category assumption; not research-verified,Very low — illustrative only
+552,Watering can,Home improvement,item,3.0,0.1,0.3,Illustrative broad-category assumption; not research-verified,Very low — illustrative only

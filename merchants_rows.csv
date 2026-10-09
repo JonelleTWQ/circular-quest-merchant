@@ -1,0 +1,4 @@
+id,created_at,merchant_name,integration_type,status
+1,2026-10-09 05:49:04.892751+00,GreenMart,manual,active
+2,2026-10-09 05:49:32.622318+00,FreshBasket,csv,active
+3,2026-10-09 05:49:50.313075+00,EcoGrocer,api,active

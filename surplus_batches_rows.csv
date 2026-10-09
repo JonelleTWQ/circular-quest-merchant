@@ -1,0 +1,7 @@
+id,merchant_id,outlet_id,merchant_sku,product_name,category,quantity_registered,quantity_remaining,original_price,surplus_price,surplus_reason,expiry_date,eligible_until,status,co2e_per_unit,registered_at,quantity_eligible,unit_weight_kg,product_condition,expected_unsold_fate,disposal_probability
+1,1,1,BRD001,Wholemeal Bread,Food,20,19,3.20,1.80,Near Expiry,2026-10-11,2026-10-11,active,0.50,2026-10-09 06:10:36.318283+00,20,,,,
+2,1,2,APP014,Red Apples 5-Pack,Food,15,13,5.50,3.00,Near Expiry,2026-10-12,2026-10-12,active,0.30,2026-10-09 06:12:21.132234+00,15,,,,
+3,2,3,MC882,Traditional Mooncake Box,Food,30,30,48.00,24.00,Seasonal Surplus,2026-10-20,2026-11-01,active,1.20,2026-10-09 06:13:53.776796+00,30,,,,
+4,3,4,SHP203,Herbal Shampoo 500ml,Personal Care,10,10,12.90,7.90,Discontinued,,2026-10-31,active,0.40,2026-10-09 06:15:02.188219+00,10,,,,
+6,2,3,YOG101,Strawberry Yogurt,Food,12,12,2.8,1.68,Near Expiry,2026-10-14,2026-10-13,active,,2026-10-09 07:59:48.155871+00,12,0.15,Near expiry,Disposed,0.50
+7,2,3,BUN202,Red Bean Bun,Food,8,8,1.5,0.9,Near Expiry,2026-10-14,2026-10-13,active,,2026-10-09 07:59:48.305001+00,8,0.08,Near expiry,Disposed,0.50
